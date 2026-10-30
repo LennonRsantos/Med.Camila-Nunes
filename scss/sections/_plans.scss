@@ -1,0 +1,298 @@
+@use "../abstracts" as *;
+
+.plans {
+  display: grid;
+  gap: 1rem;
+
+  // Phones: swipeable row of equal cards (same width, same height, buttons aligned
+  // at the bottom). script.js opens/closes "O que está incluso" on all cards together.
+  @include down(md) {
+    @include rail(0.875rem, 86%);
+    padding-block: 0.5rem 1.5rem; // room for the hover lift and the featured card's shadow
+  }
+
+  @include up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  @include up(xl) {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 0.9rem + 1.2vw, 2.25rem);
+  border: 1px solid $line;
+  border-radius: $radius;
+  background: $cream;
+  transition:
+    transform 0.4s $ease-out,
+    box-shadow 0.4s $ease-out,
+    border-color 0.4s $ease-out,
+    --spot-o 0.35s $ease-out;
+
+  @include up(md) {
+    border-radius: $radius-lg;
+  }
+
+  @include hover-fine {
+    &:hover {
+      transform: translateY(-6px);
+      border-color: rgba($caramel, 0.5);
+      box-shadow: $shadow-float;
+    }
+  }
+}
+
+.plan-title {
+  font-family: $font-display;
+  font-weight: 400;
+  font-size: $step-2;
+  line-height: 1.2;
+  color: $cafe;
+  text-wrap: balance;
+}
+
+.plan-price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-top: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $line;
+
+  @include up(md) {
+    gap: 0.5rem 1rem;
+    margin-top: 1.1rem;
+    padding-bottom: 1.4rem;
+  }
+}
+
+.plan-price {
+  font-family: $font-display;
+  font-size: $step-3;
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1;
+  color: $ink;
+}
+
+.plan-meta {
+  padding: 0.25rem 0.7rem;
+  border-radius: $radius-pill;
+  background: $sand;
+  color: $cafe;
+  font-size: 0.8125rem;
+  font-weight: 600;
+
+  @include up(md) {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.875rem;
+  }
+}
+
+.plan-desc {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  color: $ink-muted;
+
+  @include up(md) {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+  }
+}
+
+// "O que está incluso:" — a <summary>; acts as a toggle on mobile only
+.plan-includes {
+  margin-top: 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: $ink;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  @include down(md) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 48px;
+    margin-top: 1rem;
+    padding-block: 0.6rem;
+    border-top: 1px solid $line;
+    cursor: pointer;
+  }
+}
+
+.plan-chevron {
+  display: none;
+
+  @include down(md) {
+    display: block;
+    font-size: 1.1rem;
+    color: $cafe;
+    transition: transform 0.25s $ease;
+
+    .plan-details[open] & {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.check-list {
+  display: grid;
+  align-content: start;
+  gap: 0.6rem 2rem;
+  margin-top: 0.8rem;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+
+    @include up(md) {
+      gap: 0.65rem;
+      font-size: 0.975rem;
+    }
+  }
+
+  .bi {
+    margin-top: 0.15em;
+    font-size: 1.1rem;
+    color: $caramel;
+  }
+
+  @include down(md) {
+    .plan-details[open] & {
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+.plan-foot {
+  margin-top: auto;
+  padding-top: 1.25rem;
+
+  @include up(md) {
+    padding-top: 2rem;
+  }
+}
+
+// Mobile accordion slides open where the browser can animate to height: auto
+@include motion-ok {
+  @supports selector(::details-content) {
+    @include down(md) {
+      .plan-details {
+        interpolate-size: allow-keywords;
+
+        &::details-content {
+          block-size: 0;
+          overflow-y: clip;
+          transition:
+            block-size 0.4s $ease-out,
+            content-visibility 0.4s allow-discrete;
+        }
+
+        &[open]::details-content {
+          block-size: auto;
+        }
+      }
+    }
+  }
+}
+
+// ---------- Featured: Consulta Inicial ----------
+.plan-featured {
+  border-color: transparent;
+  background: $cafe;
+  color: rgba($cream, 0.88);
+  box-shadow: $shadow-float;
+  @include focus-on-dark;
+
+  @include hover-fine {
+    &:hover {
+      border-color: transparent;
+      box-shadow: $shadow-lift;
+    }
+  }
+
+  .plan-title,
+  .plan-price,
+  .plan-includes,
+  strong {
+    color: $cream;
+  }
+
+  .plan-price {
+    font-size: $step-4;
+  }
+
+  .plan-price-row {
+    border-color: rgba($cream, 0.16);
+  }
+
+  .plan-meta {
+    background: rgba($sand, 0.16);
+    color: $cream;
+  }
+
+  .plan-desc {
+    color: rgba($cream, 0.8);
+  }
+
+  .check-list .bi,
+  .plan-chevron {
+    color: $sand;
+  }
+
+  @include down(md) {
+    .plan-includes {
+      border-color: rgba($cream, 0.16);
+    }
+  }
+
+  @include up(md) {
+    grid-column: 1 / -1;
+
+    .check-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @include up(xl) {
+    grid-column: auto;
+
+    .check-list {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Side-by-side cards share row tracks, so titles, prices and lists line up
+@supports (grid-template-rows: subgrid) {
+  @include up(md) {
+    .plan {
+      display: grid;
+      grid-row: span 5;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+      align-content: start;
+    }
+
+    .plan-price-row {
+      align-self: start;
+    }
+
+    .plan-foot {
+      align-self: end;
+    }
+  }
+}

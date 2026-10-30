@@ -1,0 +1,126 @@
+@use "../abstracts" as *;
+
+.proc-wrap {
+  max-width: $content-narrow;
+  margin-inline: auto;
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: $radius-sm;
+  background: $sand;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: $cafe;
+
+  .bi {
+    margin-top: 0.1em;
+    font-size: 1.15rem;
+  }
+
+  @include up(md) {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: $radius;
+    font-size: 0.975rem;
+
+    .bi {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.proc-list {
+  padding-inline: clamp(1.1rem, 0.8rem + 2vw, 2.5rem);
+  border: 1px solid $line;
+  border-radius: $radius;
+  background: $white;
+  transition: --spot-o 0.35s $ease-out;
+
+  @include up(md) {
+    border-radius: $radius-lg;
+  }
+}
+
+.proc {
+  display: grid;
+  gap: 1rem;
+  padding-block: clamp(1.4rem, 1.1rem + 1.2vw, 2.5rem);
+
+  & + & {
+    border-top: 1px solid $line;
+  }
+
+  @include up(md) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 3rem;
+  }
+}
+
+.proc-cat {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $caramel-700;
+
+  @include up(md) {
+    font-size: 0.9375rem;
+  }
+}
+
+.proc-title {
+  margin-top: 0.25rem;
+  font-family: $font-display;
+  font-weight: 400;
+  font-size: $step-2;
+  line-height: 1.2;
+  color: $cafe;
+}
+
+.proc-desc {
+  max-width: 54ch;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  color: $ink-muted;
+
+  @include up(md) {
+    margin-top: 0.6rem;
+    font-size: 1rem;
+  }
+}
+
+// Phones: price and button share one row; the button takes the remaining width
+.proc-action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+
+  .btn {
+    flex: 1 1 auto;
+  }
+
+  @include up(md) {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+
+    .btn {
+      flex: none;
+    }
+  }
+}
+
+.proc-price {
+  font-family: $font-display;
+  font-size: $step-3;
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1;
+  color: $ink;
+}

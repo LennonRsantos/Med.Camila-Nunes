@@ -1,0 +1,76 @@
+@use "../abstracts" as *;
+
+.section-head {
+  max-width: 46rem;
+  margin-bottom: $section-head-gap;
+}
+
+.section-head-center {
+  margin-inline: auto;
+  text-align: center;
+
+  .section-intro {
+    margin-inline: auto;
+  }
+}
+
+// Label + title left, long intro right (Abordagem)
+.section-head-split {
+  display: grid;
+  gap: 1.25rem 4rem;
+  max-width: none;
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: end;
+
+    .section-intro {
+      margin-top: 0;
+    }
+  }
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $cafe;
+
+  @include up(md) {
+    margin-bottom: 0.9rem;
+    font-size: 0.9375rem;
+  }
+
+  // Small leaf mark: the same shape language as the photos
+  &::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 10px 0;
+    background: $caramel;
+  }
+}
+
+.section-title {
+  font-family: $font-display;
+  font-weight: 400;
+  font-size: $step-4;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: $cafe;
+  text-wrap: balance;
+}
+
+.section-intro {
+  margin-top: 0.75rem;
+  max-width: 62ch;
+  color: $ink-muted;
+  text-wrap: pretty;
+
+  @include up(md) {
+    margin-top: 1.1rem;
+  }
+}

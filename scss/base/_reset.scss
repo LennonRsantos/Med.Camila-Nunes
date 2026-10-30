@@ -1,0 +1,70 @@
+@use "../abstracts" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  scroll-padding-top: $header-h-sm;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba($cafe, 0.12);
+
+  @include up(md) {
+    scroll-padding-top: $header-h;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 3px solid $cafe;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

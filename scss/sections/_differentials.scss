@@ -1,0 +1,89 @@
+@use "../abstracts" as *;
+
+// Phones: swipeable row of cream cards. Tablet up: open grid with a caramel rule on top.
+
+.diff-grid {
+  @include down(md) {
+    @include rail;
+    padding-block: 0.25rem;
+  }
+
+  @include up(md) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem 2.5rem;
+  }
+
+  @include up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3rem;
+  }
+}
+
+.diff-item {
+  transition:
+    border-color 0.3s $ease-out,
+    --spot-o 0.35s $ease-out;
+
+  h3 {
+    margin-top: 0.85rem;
+    font-size: $step-1;
+    font-weight: 600;
+    line-height: 1.3;
+    color: $ink;
+  }
+
+  p {
+    margin-top: 0.4rem;
+    font-size: 0.9375rem;
+    color: $ink-muted;
+  }
+
+  @include down(md) {
+    padding: 1.25rem;
+    border: 1px solid rgba($caramel, 0.3);
+    border-radius: $radius;
+    background: $cream;
+  }
+
+  @include up(md) {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba($caramel, 0.45);
+
+    h3 {
+      margin-top: 1.1rem;
+    }
+
+    p {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+}
+
+.diff-icon {
+  @include icon-tile(44px, 50%, $sand, $cafe, 1.25rem);
+  transition:
+    background-color 0.3s $ease-out,
+    color 0.3s $ease-out,
+    transform 0.4s $ease-out;
+
+  @include up(md) {
+    width: 52px;
+    height: 52px;
+    background: $cream;
+    font-size: 1.4rem;
+  }
+}
+
+@include hover-fine {
+  .diff-item:hover {
+    border-top-color: $caramel;
+
+    .diff-icon {
+      transform: rotate(-8deg) scale(1.05);
+      background: $cafe;
+      color: $cream;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+@use "../abstracts" as *;
+
+// Mobile swipe tracks ([data-rail], styled per section with the rail() mixin).
+// script.js adds role/label/tabindex on phones and builds these position dots.
+
+[data-rail]:focus-visible {
+  outline-offset: -3px;
+}
+
+// Mouse/pen drag on phone-width layouts (script.js toggles .is-dragging)
+@include down(md) {
+  // No text selection, so a mouse drag moves the cards instead of highlighting them
+  [data-rail] {
+    cursor: grab;
+    user-select: none;
+  }
+
+  [data-rail].is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none; // follow the pointer freely; JS snaps on release
+  }
+}
+
+.rail-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+
+  @include up(md) {
+    display: none;
+  }
+
+  // 24px hit area around a 6px dot; hidden from assistive tech (the track itself scrolls)
+  button {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: $radius-pill;
+      background: rgba($cafe, 0.28);
+      transition:
+        width 0.3s $ease-out,
+        background-color 0.3s $ease-out;
+    }
+
+    &.is-active::before {
+      width: 20px;
+      background: $cafe;
+    }
+
+    @include hover-fine {
+      &:hover:not(.is-active)::before {
+        background: rgba($cafe, 0.55);
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@use "../abstracts" as *;
+
+body {
+  font-family: $font-body;
+  font-size: $step-0;
+  line-height: 1.65;
+  color: $ink;
+  background: $cream;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+strong {
+  font-weight: 600;
+}
+
+::selection {
+  background: $sand;
+  color: $cafe-900;
+}

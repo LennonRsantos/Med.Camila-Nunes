@@ -1,0 +1,20 @@
+@use "../abstracts" as *;
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1.1rem;
+  border-radius: $radius-pill;
+  background: $cafe;
+  color: $cream;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-160%);
+
+  &:focus-visible {
+    transform: none;
+    outline-color: $caramel;
+  }
+}

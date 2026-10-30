@@ -1,0 +1,32 @@
+@use "../abstracts" as *;
+
+// Spotlight cards (adapted from 21st.dev "Spotlight Card"): a soft glow follows the mouse
+// inside the card. script.js adds .spotlight and writes --mx/--my; components list
+// --spot-o in their own transition so the glow fades in and out.
+
+@property --spot-o {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@include hover-fine {
+  .spotlight,
+  .spotlight:hover {
+    background-image: radial-gradient(
+      280px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--spot-rgb, 181 118 76) / calc(var(--spot-o) * 0.14)),
+      transparent 70%
+    );
+  }
+
+  .spotlight:hover {
+    --spot-o: 1;
+  }
+
+  // Lighter glow on dark café surfaces
+  .plan-featured.spotlight,
+  .contact-item.spotlight {
+    --spot-rgb: 233 223 200;
+  }
+}

@@ -1,0 +1,80 @@
+@use "functions" as *;
+
+// ---------- Palette ----------
+// Client colors
+$cafe: #6b4a3a;
+$caramel: #b5764c;
+$sand: #e9dfc8;
+$cream: #f7f3ec;
+$taupe: #a1887a;
+
+// Derived tones. Caramel and taupe are below 4.5:1 on cream,
+// so small text uses these darker mixes instead.
+$cafe-700: tone($cafe, #000, 85%);         // primary hover
+$cafe-900: tone($cafe, #000, 62%);         // footer
+$ink: tone($cafe, #000, 58%);              // body text
+$ink-muted: tone($cafe, $taupe, 75%);      // secondary text (cream, white and sand)
+$caramel-700: tone($caramel, #000, 83%);   // caramel text on cream/white
+$caramel-200: tone($caramel, $cream, 45%); // caramel text on dark café
+$caramel-line: tone($caramel, $cream, 55%); // solid connector lines
+$sand-soft: tone($sand, $cream, 55%);      // icon tiles on cream/white
+$white: #fff;
+$wpp: #25d366;
+
+$line: rgba($taupe, 0.35);
+
+// Flat colors behind each photo while it loads
+$photo-hero-bg: #d8d2da;
+$photo-about-bg: #1e4d5a;
+
+// ---------- Type ----------
+$font-display: "Young Serif", Georgia, "Times New Roman", serif;
+$font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+// Fluid scale: compact on phones (values at 390px → 1440px in comments)
+$step--1: 0.875rem;
+$step-0: clamp(1rem, 0.954rem + 0.19vw, 1.125rem);          // 16 → 18px
+$step-1: clamp(1.0625rem, 0.946rem + 0.476vw, 1.375rem);    // 17 → 22px
+$step-2: clamp(1.2rem, 1.02rem + 0.81vw, 1.75rem);          // 19.5 → 28px
+$step-3: clamp(1.5rem, 1.175rem + 1.333vw, 2.375rem);       // 24 → 38px
+$step-4: clamp(1.75rem, 1.286rem + 1.905vw, 3rem);          // 28 → 48px
+$step-5: clamp(2.25rem, 1.377rem + 3.58vw, 4.6rem);         // 36 → 73.6px
+
+// ---------- Shape ----------
+$radius-sm: 14px;
+$radius: 20px;
+$radius-lg: 32px;
+$radius-pill: 999px;
+$leaf: clamp(72px, 15vw, 180px);
+
+// ---------- Layout ----------
+$container: 1200px;
+$content-narrow: 1080px; // care map, procedures, information
+$gutter: clamp(1rem, 4vw, 2.5rem);
+// Section spacing also follows screen height, so short notebook screens get less air
+$section-y: clamp(3.5rem, min(2rem + 6.7vw, 15svh), 8rem); // 56 → 128px
+$section-head-gap: clamp(1.75rem, 1rem + 3.3vw, 4rem);     // 28 → 64px
+$header-h-sm: 64px; // phones
+$header-h: 72px;
+
+$breakpoints: (
+  sm: 480px,
+  md: 720px,
+  lg: 960px,
+  nav: 1080px,
+  xl: 1100px,
+  wide: 1280px,
+);
+
+// ---------- Depth ----------
+$shadow-float: 0 24px 50px -22px rgba($cafe-900, 0.5);
+$shadow-lift: 0 30px 60px -28px rgba($cafe-900, 0.55);
+
+// ---------- Motion ----------
+$ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+$dur-fast: 0.2s;
+$dur: 0.6s;
+$dur-slow: 1s;
+$stagger: 90ms;

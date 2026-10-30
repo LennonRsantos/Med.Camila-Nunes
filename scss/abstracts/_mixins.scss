@@ -1,0 +1,87 @@
+@use "sass:map";
+@use "tokens" as *;
+
+// Mobile-first: styles from this breakpoint up
+@mixin up($bp) {
+  @media (min-width: map.get($breakpoints, $bp)) {
+    @content;
+  }
+}
+
+// Styles below this breakpoint only
+@mixin down($bp) {
+  @media (max-width: (map.get($breakpoints, $bp) - 0.02px)) {
+    @content;
+  }
+}
+
+// Styles from $from up to (not including) $to
+@mixin between($from, $to) {
+  @media (min-width: map.get($breakpoints, $from)) and (max-width: (map.get($breakpoints, $to) - 0.02px)) {
+    @content;
+  }
+}
+
+// Wide but short screens: most notebooks and tablets in landscape
+@mixin notebook {
+  @media (min-width: map.get($breakpoints, lg)) and (max-height: 860px) {
+    @content;
+  }
+}
+
+// Hover effects only where a mouse can hover (no sticky hover on touch)
+@mixin hover-fine {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin motion-ok {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+// Square or round tile holding one Bootstrap Icon
+@mixin icon-tile($size, $radius: 50%, $bg: $sand-soft, $fg: $cafe, $icon-size: 1.25rem) {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: $size;
+  height: $size;
+  border-radius: $radius;
+  background: $bg;
+  color: $fg;
+  font-size: $icon-size;
+}
+
+// Horizontal swipe track for phones: edge to edge, snapping card by card,
+// with the next card peeking in from the screen edge as a swipe hint
+@mixin rail($gap: 0.875rem, $item: 82%) {
+  position: relative;
+  display: flex;
+  gap: $gap;
+  margin-inline: calc($gutter * -1);
+  padding-inline: $gutter;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: $gutter;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    flex: 0 0 $item;
+    scroll-snap-align: start;
+  }
+}
+
+// Lighter focus ring for content on dark café surfaces
+@mixin focus-on-dark {
+  :focus-visible {
+    outline-color: $sand;
+  }
+}

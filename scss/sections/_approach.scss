@@ -1,0 +1,575 @@
+@use "../abstracts" as *;
+
+// Care map: "Paciente no centro" plus three pillars.
+//   < md   center on top, pillars in a swipeable row hanging from one caramel line
+//   ≥ md   orbit (adapted from 21st.dev "Radial Orbital Timeline"): pillars orbit the
+//          center; the chosen item's card shows next to it. script.js builds the orbit
+//          and adds .has-orbit; without JS the cards fall back to a simple grid.
+
+$rail-gap: 0.875rem;
+$orbit-radius: 36%; // node distance from the center, as % of the orbit box
+
+.care-map {
+  position: relative;
+  display: grid;
+  max-width: $content-narrow;
+  margin-inline: auto;
+
+  @include up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+// Wrapper of the three pillars: a swipe track on phones, invisible to the grid above
+.care-branches {
+  @include down(md) {
+    @include rail($rail-gap);
+    padding-top: 2rem; // room for the connecting line and its dots
+    padding-bottom: 0.25rem;
+
+    // Cards snap to the screen center, so the active card's dot sits right under
+    // the stem coming down from "Paciente no centro" (also for the first and last card)
+    $branch-w: min(80vw, 320px);
+    padding-inline: calc((100vw - $branch-w) / 2);
+    scroll-padding-inline: calc((100vw - $branch-w) / 2);
+
+    > * {
+      flex-basis: $branch-w;
+      scroll-snap-align: center;
+    }
+  }
+
+  @include up(md) {
+    display: contents;
+  }
+}
+
+.care-node {
+  position: relative;
+  z-index: 1;
+  padding: 1.25rem;
+  border: 1px solid $line;
+  border-radius: $radius;
+  background: $white;
+  transition:
+    transform 0.35s $ease-out,
+    border-color 0.35s $ease-out,
+    box-shadow 0.35s $ease-out,
+    --spot-o 0.35s $ease-out;
+
+  h3 {
+    margin: 0.85rem 0 0.35rem;
+    font-size: $step-1;
+    font-weight: 600;
+    line-height: 1.3;
+    color: $ink;
+    text-wrap: balance;
+  }
+
+  p {
+    font-size: 0.9375rem;
+    color: $ink-muted;
+  }
+
+  @include up(md) {
+    padding: 1.5rem;
+
+    h3 {
+      margin: 1rem 0 0.4rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}
+
+.care-icon {
+  @include icon-tile(40px, 12px, $sand-soft, $cafe, 1.2rem);
+
+  @include up(md) {
+    width: 48px;
+    height: 48px;
+    border-radius: $radius-sm;
+    font-size: 1.4rem;
+  }
+}
+
+.care-node-center {
+  --pulse-scale: 1.05; // stays inside the screen gutter on phones
+  z-index: 2;
+  order: -1;
+  padding: 1.5rem 1.25rem;
+  border-color: transparent;
+  border-radius: 40px 18px 40px 18px;
+  background: $cafe;
+  text-align: center;
+  box-shadow: 0 0 0 6px rgba($caramel, 0.3);
+
+  // Pulse ring, played twice once the map is revealed
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border: 2px solid $caramel;
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .care-icon {
+    margin-inline: auto;
+    background: rgba($sand, 0.16);
+    color: $sand;
+  }
+
+  h3 {
+    font-family: $font-display;
+    font-weight: 400;
+    font-size: $step-3;
+    line-height: 1.15;
+    color: $cream;
+  }
+
+  p {
+    color: rgba($cream, 0.82);
+  }
+
+  // Phones: stem from the center down to the pillars' line
+  @include down(md) {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: calc(50% - 1px);
+      width: 2px;
+      height: calc(1rem + 1px);
+      background: $caramel-line;
+      transform-origin: top center;
+    }
+  }
+
+  @include up(md) {
+    --pulse-scale: 1.06;
+    grid-column: 1 / -1;
+    padding: 2rem;
+
+    p {
+      font-size: $step-0;
+    }
+  }
+}
+
+// Reveal order of the pillars (used by the animation below)
+.care-node-a { --d: 0.8s; }
+.care-node-b { --d: 0.95s; }
+.care-node-c { --d: 1.1s; }
+
+// ---------- Phones: one line across the top of the swipe row ----------
+@include down(md) {
+  .care-node-a,
+  .care-node-b,
+  .care-node-c {
+    // Each card draws its share of the line, reaching halfway into the gaps
+    // (1px overlap so sub-pixel rounding never leaves a hairline gap)
+    &::before {
+      content: "";
+      position: absolute;
+      top: -1rem;
+      left: calc($rail-gap * -0.5 - 1px);
+      right: calc($rail-gap * -0.5 - 1px);
+      height: 2px;
+      background: $caramel-line;
+      transform-origin: left center;
+    }
+
+    // Connection dot
+    &::after {
+      content: "";
+      position: absolute;
+      top: calc(-1rem - 4px);
+      left: calc(50% - 5px);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: $caramel;
+      box-shadow: 0 0 0 4px $cream;
+    }
+  }
+
+  // The line starts at the first dot and ends at the last one
+  .care-node-a::before {
+    left: 50%;
+  }
+
+  .care-node-c::before {
+    right: 50%;
+  }
+}
+
+// ---------- Tablet and up: orbit + detail card ----------
+.orbit {
+  display: none;
+}
+
+@include up(md) {
+  .care-map.has-orbit {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "orbit"
+      "panel";
+    gap: 2.5rem;
+    align-items: center;
+
+    .orbit {
+      display: block;
+      grid-area: orbit;
+    }
+
+    // All four cards share one cell; script.js keeps only the chosen one visible
+    .care-node {
+      grid-area: panel;
+      width: 100%;
+      max-width: 34rem;
+      justify-self: center;
+      padding: 2.25rem;
+      border-radius: 32px 14px 32px 14px;
+      text-align: left;
+    }
+
+    .care-node-center .care-icon {
+      margin-inline: 0;
+    }
+  }
+}
+
+@include up(lg) {
+  .care-map.has-orbit {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    grid-template-areas: "orbit panel";
+    gap: 3.5rem;
+  }
+}
+
+.orbit {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 1;
+  margin-inline: auto;
+
+  // Soft halo behind the whole system
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($sand, 0.7), rgba($sand, 0) 70%);
+  }
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: calc(50% - $orbit-radius);
+  border: 1.5px dashed $caramel-line;
+  border-radius: 50%;
+}
+
+.orbit-track {
+  position: absolute;
+  inset: 0;
+}
+
+// Line from the center to a node; rotates with the track
+.orbit-spoke {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: $orbit-radius;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba($caramel, 0) 45%, $caramel-line);
+  transform: rotate(var(--angle));
+  transform-origin: 0 50%;
+}
+
+.orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.5rem;
+  width: 36%;
+  aspect-ratio: 1;
+  padding: 0.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: $cafe;
+  color: $cream;
+  font-family: $font-display;
+  font-size: clamp(0.95rem, 0.7rem + 0.8vw, 1.25rem);
+  line-height: 1.15;
+  text-align: center;
+  cursor: pointer;
+  box-shadow:
+    0 0 0 8px rgba($caramel, 0.2),
+    0 18px 40px -18px rgba($cafe-900, 0.6);
+  transform: translate(-50%, -50%);
+  transition:
+    box-shadow 0.35s $ease-out,
+    transform 0.35s $ease-out;
+
+  .bi {
+    font-size: 1.5rem;
+    color: $sand;
+  }
+
+  &[aria-selected="true"] {
+    box-shadow:
+      0 0 0 8px rgba($caramel, 0.35),
+      0 0 0 18px rgba($caramel, 0.12),
+      0 18px 40px -18px rgba($cafe-900, 0.6);
+  }
+
+  &:focus-visible {
+    outline-color: $caramel;
+    outline-offset: 6px;
+  }
+}
+
+// Positioned by script.js (left/top on the orbit circle)
+.orbit-node {
+  position: absolute;
+  z-index: 1;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+
+  &:focus-visible {
+    outline: none;
+
+    .orbit-node-icon {
+      outline: 3px solid $cafe;
+      outline-offset: 3px;
+    }
+  }
+}
+
+// Counter-rotates so icon and label stay upright while the track turns
+.orbit-node-inner {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.orbit-node-icon {
+  @include icon-tile(60px, 50%, $white, $cafe, 1.4rem);
+  border: 1.5px solid $caramel-line;
+  box-shadow: 0 10px 24px -14px rgba($cafe-900, 0.5);
+  transition:
+    background-color 0.3s $ease-out,
+    color 0.3s $ease-out,
+    border-color 0.3s $ease-out,
+    transform 0.35s $ease-pop,
+    box-shadow 0.3s $ease-out;
+}
+
+.orbit-node-label {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  width: 9.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: $ink;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.orbit-node[aria-selected="true"] .orbit-node-icon {
+  border-color: $cafe;
+  background: $cafe;
+  color: $cream;
+  box-shadow: 0 0 0 7px rgba($caramel, 0.25);
+  transform: scale(1.1);
+}
+
+@include hover-fine {
+  .orbit-node:hover .orbit-node-icon {
+    border-color: $caramel;
+    transform: scale(1.08);
+  }
+
+  .orbit-center:hover {
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+}
+
+// Slow rotation; pauses while the visitor is pointing, focusing or has chosen a pillar
+@include motion-ok {
+  .orbit-track {
+    animation: orbit-spin 60s linear infinite;
+  }
+
+  .orbit-node-inner {
+    animation: orbit-spin 60s linear infinite reverse;
+  }
+
+  .orbit:hover,
+  .orbit:focus-within,
+  .orbit.is-paused {
+    .orbit-track,
+    .orbit-node-inner {
+      animation-play-state: paused;
+    }
+  }
+
+  // Detail card fades in when the chosen item changes
+  .care-node.is-entering {
+    animation: panel-in 0.45s $ease-out;
+  }
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+// ---------- Hover (phones' swipe cards and the detail card) ----------
+@include hover-fine {
+  .care-node-a,
+  .care-node-b,
+  .care-node-c {
+    &:hover {
+      transform: translateY(-4px);
+      border-color: rgba($caramel, 0.55);
+      box-shadow: $shadow-float;
+    }
+  }
+}
+
+// ---------- Reveal sequence (script.js adds .is-revealed, then .is-settled) ----------
+// Phones: center grows in, stem and line draw, cards arrive, dots light up.
+// Orbit: ring and center appear, spokes draw out, nodes pop in one by one.
+@include motion-ok {
+  .js-reveal .care-map:not(.is-settled) {
+    .care-node-center {
+      transition:
+        opacity $dur $ease-out,
+        transform 0.8s $ease-out;
+    }
+
+    .care-node-center::before,
+    .orbit-spoke {
+      transition: transform 0.7s $ease-out 0.45s;
+    }
+
+    .care-node-a,
+    .care-node-b,
+    .care-node-c {
+      transition:
+        opacity $dur $ease-out var(--d),
+        transform 0.7s $ease-out var(--d);
+
+      &::before {
+        transition: transform 0.5s $ease-out var(--d);
+      }
+
+      &::after {
+        transition: transform 0.45s $ease-pop calc(var(--d) + 0.3s);
+      }
+    }
+
+    .orbit-ring {
+      transition:
+        opacity 0.8s $ease-out,
+        transform 1s $ease-out;
+    }
+
+    .orbit-center {
+      transition:
+        opacity $dur $ease-out 0.15s,
+        transform 0.8s $ease-out 0.15s;
+    }
+
+    .orbit-node {
+      transition:
+        opacity 0.5s $ease-out var(--d),
+        transform 0.6s $ease-pop var(--d);
+    }
+  }
+
+  .js-reveal .care-map:not(.is-revealed) {
+    .care-node-center {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    .care-node-center::before {
+      transform: scale(0);
+    }
+
+    .care-node-a,
+    .care-node-b,
+    .care-node-c {
+      opacity: 0;
+      transform: translateY(-14px);
+
+      &::before,
+      &::after {
+        transform: scale(0);
+      }
+    }
+
+    .orbit-ring {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+
+    .orbit-center {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    .orbit-spoke {
+      transform: rotate(var(--angle)) scaleX(0);
+    }
+
+    .orbit-node {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.4);
+    }
+  }
+
+  .js-reveal .care-map.is-revealed .care-node-center::after {
+    animation: care-pulse 1.6s $ease-out 1.3s 2;
+  }
+}
+
+@keyframes care-pulse {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(var(--pulse-scale, 1.18));
+  }
+}

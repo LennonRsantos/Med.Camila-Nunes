@@ -1,0 +1,78 @@
+@use "../abstracts" as *;
+
+.wpp-float {
+  position: fixed;
+  right: max(0.875rem, env(safe-area-inset-right));
+  bottom: calc(0.875rem + env(safe-area-inset-bottom));
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: $wpp;
+  color: $white;
+  font-size: 1.65rem;
+  box-shadow: 0 14px 30px -12px rgba(18, 120, 60, 0.65);
+  transition:
+    transform 0.25s $ease,
+    opacity 0.25s $ease,
+    visibility 0s linear 0s;
+
+  &:hover {
+    transform: scale(1.06);
+  }
+
+  &:focus-visible {
+    outline-color: $ink;
+  }
+
+  &.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.9);
+    transition:
+      transform 0.25s $ease,
+      opacity 0.25s $ease,
+      visibility 0s linear 0.25s;
+  }
+
+  @include up(md) {
+    right: max(1.5rem, env(safe-area-inset-right));
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    width: 58px;
+    height: 58px;
+    font-size: 1.875rem;
+  }
+}
+
+.wpp-float-tip {
+  position: absolute;
+  right: calc(100% + 0.75rem);
+  top: 50%;
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  background: $ink;
+  color: $cream;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(6px, -50%);
+  transition:
+    opacity 0.2s $ease,
+    transform 0.2s $ease,
+    visibility 0s linear 0.2s;
+
+  @media (hover: hover) {
+    .wpp-float:hover &,
+    .wpp-float:focus-visible & {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, -50%);
+      transition-delay: 0s;
+    }
+  }
+}

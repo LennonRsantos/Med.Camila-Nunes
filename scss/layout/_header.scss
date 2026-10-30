@@ -1,0 +1,207 @@
+@use "../abstracts" as *;
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba($cream, 0.88);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s $ease, box-shadow 0.3s $ease;
+
+  &.is-scrolled,
+  &.is-open {
+    border-bottom-color: $line;
+    box-shadow: 0 12px 30px -26px rgba($cafe-900, 0.6);
+  }
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: $header-h-sm;
+
+  @include up(md) {
+    min-height: $header-h;
+  }
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+.brand-name {
+  font-family: $font-display;
+  font-size: 1.25rem;
+  color: $cafe;
+
+  @include up(md) {
+    font-size: 1.375rem;
+  }
+}
+
+.brand-tagline {
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  color: $ink-muted;
+
+  @include up(md) {
+    font-size: 0.8125rem;
+  }
+}
+
+// ---------- Menu button: bi-list ↔ bi-x-lg ----------
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid $line;
+  border-radius: 50%;
+  background: $white;
+  color: $cafe;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: background-color 0.2s $ease, border-color 0.2s $ease;
+
+  &:hover {
+    border-color: rgba($cafe, 0.3);
+    background: $sand-soft;
+  }
+
+  .bi-x-lg {
+    display: none;
+    font-size: 1.1rem;
+  }
+
+  .is-open & {
+    .bi-list {
+      display: none;
+    }
+
+    .bi-x-lg {
+      display: block;
+    }
+  }
+
+  @include up(nav) {
+    display: none;
+  }
+}
+
+// ---------- Navigation: dropdown panel on mobile, inline row on desktop ----------
+.site-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: calc(100vh - $header-h);
+  max-height: calc(100dvh - $header-h);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem $gutter 1.5rem;
+  background: $cream;
+  border-bottom: 1px solid $line;
+  box-shadow: 0 30px 40px -30px rgba($cafe-900, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.25s $ease,
+    transform 0.25s $ease,
+    visibility 0s linear 0.25s;
+
+  .is-open & {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  @include up(nav) {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+  }
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+
+  a:not(.btn) {
+    display: flex;
+    padding: 0.95rem 0.25rem;
+    border-bottom: 1px solid $line;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: $ink;
+    text-decoration: none;
+    transition: color 0.2s $ease, background-color 0.2s $ease;
+
+    &:hover,
+    &[aria-current="true"] {
+      color: $cafe;
+    }
+  }
+
+  @include up(nav) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.15rem;
+
+    a:not(.btn) {
+      padding: 0.5rem 0.8rem;
+      border-bottom: 0;
+      border-radius: $radius-pill;
+      font-size: 0.9375rem;
+
+      &:hover {
+        background: rgba($sand, 0.6);
+      }
+
+      &[aria-current="true"] {
+        background: $sand;
+      }
+    }
+  }
+
+  // Smaller notebooks: a little more room between brand and links
+  @include between(nav, wide) {
+    a:not(.btn) {
+      padding-inline: 0.65rem;
+    }
+  }
+}
+
+.nav-cta {
+  margin-top: 1.25rem;
+
+  .btn {
+    width: 100%;
+  }
+
+  @include up(nav) {
+    margin: 0 0 0 0.75rem;
+
+    .btn {
+      width: auto;
+    }
+  }
+}

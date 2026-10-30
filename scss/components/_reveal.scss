@@ -1,0 +1,61 @@
+@use "../abstracts" as *;
+
+// Scroll reveal.
+// script.js adds .js-reveal to <html> (only when motion is allowed), marks the
+// targets with [data-reveal] + --reveal-i, and adds .is-revealed as each one
+// enters the viewport. Without JS or with reduced motion nothing is hidden.
+
+@include motion-ok {
+  .js-reveal {
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition:
+        opacity $dur $ease-out,
+        transform 0.8s $ease-out;
+      transition-delay: calc(var(--reveal-i, 0) * $stagger);
+    }
+
+    // Photo opens from the bottom, like the hero portrait
+    [data-reveal="leaf"] {
+      opacity: 1;
+      transform: none;
+      clip-path: inset(100% 0 0 0);
+      transition: clip-path 1.1s $ease-out;
+    }
+
+    // Large text rising out of a mask (footer name)
+    [data-reveal="mask"] {
+      opacity: 1;
+      transform: translateY(0.25em);
+      clip-path: inset(0 0 100% 0);
+      transition:
+        clip-path 1.1s $ease-out,
+        transform 1.1s $ease-out;
+    }
+
+    // Leaf mark of the section label grows in with its heading
+    .section-label[data-reveal]::before {
+      transform: scale(0) rotate(-90deg);
+      transition: transform 0.6s $ease-pop 0.2s;
+    }
+
+    [data-reveal].is-revealed {
+      opacity: 1;
+      transform: none;
+      clip-path: inset(0);
+
+      &.section-label::before {
+        transform: none;
+      }
+    }
+  }
+}
+
+@media print {
+  .js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}

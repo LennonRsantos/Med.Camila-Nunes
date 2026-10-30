@@ -1,0 +1,153 @@
+@use "../abstracts" as *;
+
+// Footer adapted from 21st.dev "Motion Footer": curtain reveal, faint grid,
+// drifting aurora and the name set huge in a gradient.
+
+.site-footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  // Extra bottom room on phones so the floating WhatsApp button never covers the last lines
+  padding-block: clamp(3rem, 2rem + 4vw, 6rem) 5.5rem;
+  background: $cafe-900;
+  font-size: 0.9375rem;
+  color: rgba($cream, 0.72);
+  @include focus-on-dark;
+
+  // Faint grid, fading out towards the bottom
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba($cream, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba($cream, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 20%, transparent 75%);
+  }
+
+  // Aurora: two soft blobs behind the name
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -40% -10% auto;
+    z-index: -1;
+    height: 120%;
+    background:
+      radial-gradient(38% 45% at 25% 40%, rgba($caramel, 0.4), transparent 70%),
+      radial-gradient(32% 40% at 75% 30%, rgba($sand, 0.2), transparent 70%);
+    filter: blur(40px);
+  }
+
+  // Curtain: the page slides up and uncovers the footer pinned underneath
+  @include up(md) {
+    position: sticky;
+    bottom: 0;
+    z-index: 0;
+  }
+
+  @include up(lg) {
+    padding-bottom: 2.5rem;
+  }
+}
+
+@include motion-ok {
+  .site-footer::after {
+    animation: aurora 30s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes aurora {
+  to {
+    transform: translate3d(8%, 10%, 0) scale(1.12) rotate(4deg);
+  }
+}
+
+.footer-top {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid rgba($cream, 0.12);
+
+  @include up(md) {
+    padding-bottom: 2.5rem;
+  }
+}
+
+// The name as the footer's centerpiece, filled with a sand → caramel gradient
+.footer-name {
+  padding-bottom: 0.08em; // keeps descenders inside the clipped text
+  background: linear-gradient(180deg, $sand 10%, $caramel-200 55%, $caramel);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: $font-display;
+  font-size: clamp(2.25rem, 1rem + 5vw, 5.5rem); // 36px phones → 88px desktop, one line
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.footer-crm {
+  margin-top: 0.4rem;
+  color: $sand;
+}
+
+.footer-place {
+  margin-top: 0.2rem;
+  color: rgba($cream, 0.65);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+
+  // Underline grows from the left on hover
+  a {
+    padding-bottom: 2px;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    font-weight: 500;
+    color: $caramel-200;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: background-size 0.35s $ease-out;
+
+    &:hover,
+    &:focus-visible {
+      background-size: 100% 1px;
+    }
+  }
+}
+
+.footer-legal {
+  max-width: 80ch;
+  margin-top: 1.75rem;
+  font-size: 0.85rem;
+  color: rgba($cream, 0.6);
+}
+
+.footer-copy {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: rgba($cream, 0.6);
+}
+
+// Developer credit: deliberately small and quiet
+.footer-credit {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: rgba($cream, 0.6);
+
+  a {
+    color: $caramel-200;
+    text-decoration: underline;
+    text-decoration-color: rgba($caramel-200, 0.4);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s $ease-out;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+}

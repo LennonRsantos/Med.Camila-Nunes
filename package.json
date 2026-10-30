@@ -4,7 +4,7 @@
   "private": true,
   "description": "Landing page da Dra. Camila Nunes — Saúde Integral da Mulher",
   "scripts": {
-    "build": "sass scss/main.scss styles.css --style=compressed --no-source-map",
+    "build": "sass scss/main.scss styles.css --style=compressed --no-source-map && node scripts/build.mjs",
     "watch": "sass --watch scss/main.scss styles.css --no-source-map"
   },
   "devDependencies": {

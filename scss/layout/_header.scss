@@ -190,6 +190,146 @@
   }
 }
 
+// ---------- Groups: "Atendimento ▾" and "Conteúdo ▾" ----------
+// Mobile panel: a small title with its links listed below (no toggle).
+// Desktop: a pill button that opens a floating list (click, or hover with a mouse).
+
+.nav-group-label {
+  display: block;
+  margin-top: 1.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: $caramel-700;
+}
+
+.nav-group-toggle {
+  display: none;
+}
+
+.nav-sub a:not(.btn) {
+  padding-left: 0.75rem;
+}
+
+@include up(nav) {
+  .nav-group {
+    position: relative;
+  }
+
+  .nav-group-label {
+    display: none;
+  }
+
+  .nav-group-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.8rem;
+    border: 0;
+    border-radius: $radius-pill;
+    background: none;
+    color: $ink;
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s $ease, color 0.2s $ease;
+
+    .bi {
+      font-size: 0.75rem;
+      transition: transform 0.25s $ease-out;
+    }
+
+    &:hover {
+      background: rgba($sand, 0.6);
+      color: $cafe;
+    }
+
+    @include between(nav, wide) {
+      padding-inline: 0.65rem;
+    }
+  }
+
+  // The group holding the section in view looks like an active link
+  .nav-group.has-current > .nav-group-toggle {
+    background: $sand;
+    color: $cafe;
+  }
+
+  .nav-sub {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 50%;
+    z-index: 5;
+    display: grid;
+    gap: 0.15rem;
+    min-width: 14rem;
+    padding: 0.5rem;
+    border: 1px solid $line;
+    border-radius: 18px;
+    background: $white;
+    box-shadow: $shadow-float;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 6px);
+    transition:
+      opacity 0.2s $ease-out,
+      transform 0.2s $ease-out,
+      visibility 0s linear 0.2s;
+
+    // Invisible bridge so the pointer can travel from the button to the list
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -0.75rem 0 auto;
+      height: 0.75rem;
+    }
+
+    a:not(.btn) {
+      display: block;
+      padding: 0.6rem 0.85rem;
+      border-radius: 12px;
+      white-space: nowrap;
+
+      &:hover {
+        background: $sand-soft;
+      }
+
+      &[aria-current="true"] {
+        background: $sand;
+      }
+    }
+  }
+
+  .nav-group.is-open {
+    > .nav-group-toggle .bi {
+      transform: rotate(180deg);
+    }
+
+    > .nav-sub {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+      transition-delay: 0s;
+    }
+  }
+
+  @include hover-fine {
+    .nav-group:hover {
+      > .nav-group-toggle .bi {
+        transform: rotate(180deg);
+      }
+
+      > .nav-sub {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0);
+        transition-delay: 0s;
+      }
+    }
+  }
+}
+
 .nav-cta {
   margin-top: 1.25rem;
 

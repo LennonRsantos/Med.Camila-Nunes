@@ -1,0 +1,349 @@
+@use "../abstracts" as *;
+
+// Blog: article cards (swipe row on phones) that open the full text in a <dialog>.
+
+.blog-grid {
+  @include down(md) {
+    @include rail;
+    padding-block: 0.25rem;
+  }
+
+  @include up(md) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  @include up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid $line;
+  border-radius: $radius;
+  background: $cream;
+  transition:
+    transform 0.35s $ease-out,
+    border-color 0.35s $ease-out,
+    box-shadow 0.35s $ease-out,
+    --spot-o 0.35s $ease-out;
+
+  @include hover-fine {
+    &:hover {
+      transform: translateY(-4px);
+      border-color: rgba($caramel, 0.5);
+      box-shadow: $shadow-float;
+    }
+  }
+}
+
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.85rem;
+  font-size: 0.8125rem;
+}
+
+.blog-tag {
+  padding: 0.25rem 0.7rem;
+  border-radius: $radius-pill;
+  background: $sand;
+  color: $cafe;
+  font-weight: 600;
+}
+
+.blog-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: $ink-muted;
+}
+
+.blog-title {
+  margin-top: 1rem;
+  font-family: $font-display;
+  font-weight: 400;
+  font-size: clamp(1.2rem, 1.1rem + 0.4vw, 1.4rem);
+  line-height: 1.25;
+  color: $cafe;
+}
+
+.blog-summary {
+  margin-top: 0.6rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9375rem;
+  color: $ink-muted;
+}
+
+// margin-top: auto keeps the button at the bottom even when the summary is short
+.blog-open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 44px;
+  margin-top: auto;
+  padding: 1rem 0 0;
+  border: 0;
+  border-top: 1px solid $line;
+  background: none;
+  color: $cafe;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+
+  .bi {
+    font-size: 1.1rem;
+    transition: transform 0.3s $ease-pop;
+  }
+
+  &:hover .bi {
+    transform: translateX(3px);
+  }
+}
+
+// ---------- Tablet and up: first article featured across the whole grid ----------
+@include up(md) {
+  .blog-card:first-child {
+    grid-column: 1 / -1;
+    border-color: transparent;
+    background: $sand;
+
+    .blog-tag {
+      background: $cream;
+    }
+
+    .blog-title {
+      font-size: $step-3;
+    }
+  }
+}
+
+// Desktop: the featured article reads in two columns
+@include up(lg) {
+  .blog-card:first-child {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "meta summary"
+      "title summary"
+      "title open";
+    grid-template-rows: auto auto 1fr;
+    column-gap: 3.5rem;
+    padding: 2.25rem 2.5rem;
+
+    .blog-meta { grid-area: meta; }
+    .blog-title { grid-area: title; }
+
+    .blog-summary {
+      grid-area: summary;
+      margin: 0 0 1.25rem;
+      font-size: 1rem;
+    }
+
+    .blog-open {
+      grid-area: open;
+      align-self: end;
+    }
+  }
+}
+
+// Tablet: a lone last card spans both columns instead of leaving a gap
+@include between(md, lg) {
+  .blog-grid > .blog-card:last-child:nth-child(even) {
+    grid-column: 1 / -1;
+  }
+}
+
+// "Ver todos os artigos": tablet shows the featured + 4, desktop the featured + 3
+@include between(md, lg) {
+  .blog-grid.is-collapsible:not(.is-expanded) > .blog-card:nth-child(n + 6) {
+    display: none;
+  }
+}
+
+@include up(lg) {
+  .blog-grid.is-collapsible:not(.is-expanded) > .blog-card:nth-child(n + 5) {
+    display: none;
+  }
+}
+
+.blog-more {
+  display: none;
+  justify-content: center;
+  margin-top: 2rem;
+
+  @include up(md) {
+    display: flex;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// Newly shown articles fade in one after another
+@include motion-ok {
+  .blog-card.is-entering {
+    animation: panel-in 0.5s $ease-out both;
+    animation-delay: calc(var(--enter-i, 0) * 70ms);
+  }
+}
+
+.blog-disclaimer {
+  max-width: 70ch;
+  margin: 2rem auto 0;
+  padding: 1rem 1.25rem;
+  border-radius: $radius-sm;
+  background: $sand-soft;
+  font-size: 0.875rem;
+  color: $ink-muted;
+  text-align: center;
+}
+
+// ---------- Reading dialog ----------
+html:has(.article-dialog[open]) {
+  overflow: hidden;
+}
+
+.article-dialog {
+  width: min(720px, 100% - 2rem);
+  max-width: none;
+  max-height: min(88dvh, 920px);
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  background: $cream;
+  color: $ink;
+  box-shadow: 0 40px 80px -30px rgba($cafe-900, 0.6);
+  overflow: hidden;
+
+  &::backdrop {
+    background: rgba($cafe-900, 0.55);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+
+  // Phones: a sheet rising from the bottom
+  @include down(md) {
+    width: 100%;
+    max-height: 92dvh;
+    margin: auto 0 0;
+    border-radius: 24px 24px 0 0;
+  }
+}
+
+.article-close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid $line;
+  border-radius: 50%;
+  background: $white;
+  color: $cafe;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s $ease;
+
+  &:hover {
+    background: $sand-soft;
+  }
+}
+
+.article-inner {
+  max-height: inherit;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2.25rem clamp(1.25rem, 0.75rem + 3vw, 3rem) 2rem;
+}
+
+.article-title {
+  margin-top: 1rem;
+  padding-right: 2.5rem; // clear of the close button
+  font-family: $font-display;
+  font-weight: 400;
+  font-size: $step-3;
+  line-height: 1.15;
+  color: $cafe;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.article-body {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: $ink;
+}
+
+.article-sources {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid $line;
+  font-size: 0.875rem;
+  color: $ink-muted;
+
+  strong {
+    color: $ink;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    padding-left: 1.1rem;
+    list-style: disc;
+  }
+}
+
+.article-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem 1.25rem;
+  margin-top: 1.75rem;
+  padding: 1.25rem;
+  border-radius: $radius;
+  background: $sand;
+  font-weight: 600;
+  color: $cafe;
+}
+
+@include motion-ok {
+  .article-dialog[open] {
+    animation: dialog-in 0.35s $ease-out;
+
+    &::backdrop {
+      animation: backdrop-in 0.35s $ease-out;
+    }
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}

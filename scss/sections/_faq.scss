@@ -1,0 +1,119 @@
+@use "../abstracts" as *;
+
+// Perguntas frequentes: heading and WhatsApp help on the left, questions on the right (≥ lg).
+
+.faq-layout {
+  display: grid;
+  gap: 0;
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 4rem;
+    align-items: start;
+
+    .faq-head {
+      grid-column: 1;
+      grid-row: 1;
+      margin-bottom: 0;
+    }
+
+    .faq-help {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .faq-list {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+  }
+}
+
+.faq-list {
+  border-top: 1px solid $line;
+}
+
+.faq-item {
+  border-bottom: 1px solid $line;
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 48px;
+    padding-block: 1.1rem;
+    font-size: $step-1;
+    font-weight: 600;
+    line-height: 1.35;
+    color: $ink;
+    list-style: none;
+    cursor: pointer;
+    transition: color 0.2s $ease;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover {
+      color: $cafe;
+    }
+  }
+
+  &[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+}
+
+.faq-icon {
+  @include icon-tile(36px, 50%, $sand, $cafe, 1rem);
+  transition: transform 0.3s $ease-out;
+}
+
+.faq-answer {
+  max-width: 62ch;
+  padding-bottom: 1.25rem;
+  color: $ink-muted;
+}
+
+// Answers slide open where the browser can animate to height: auto
+@include motion-ok {
+  @supports selector(::details-content) {
+    .faq-item {
+      interpolate-size: allow-keywords;
+
+      &::details-content {
+        block-size: 0;
+        overflow-y: clip;
+        transition:
+          block-size 0.4s $ease-out,
+          content-visibility 0.4s allow-discrete;
+      }
+
+      &[open]::details-content {
+        block-size: auto;
+      }
+    }
+  }
+}
+
+.faq-help {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  margin-top: 1.75rem;
+  padding: 1.5rem;
+  border-radius: $radius;
+  background: $sand;
+
+  p {
+    font-size: $step-1;
+    font-weight: 600;
+    color: $cafe;
+  }
+
+  @include up(lg) {
+    margin-top: 2rem;
+  }
+}

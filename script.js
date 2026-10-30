@@ -45,6 +45,129 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Nav groups ("Atendimento", "Conteúdo"): disclosure buttons on desktop.
+  // A mouse also opens them on hover (CSS); click, Esc, outside click and focus loss close them.
+  const navGroups = [...document.querySelectorAll('.nav-group')];
+  const setGroup = (group, open) => {
+    group.classList.toggle('is-open', open);
+    group.querySelector('.nav-group-toggle').setAttribute('aria-expanded', String(open));
+  };
+  navGroups.forEach((group) => {
+    group.querySelector('.nav-group-toggle').addEventListener('click', () => {
+      const open = !group.classList.contains('is-open');
+      navGroups.forEach((other) => setGroup(other, false));
+      setGroup(group, open);
+    });
+    group.querySelectorAll('.nav-sub a').forEach((link) => {
+      link.addEventListener('click', () => setGroup(group, false));
+    });
+    group.addEventListener('focusout', (e) => {
+      if (!group.contains(e.relatedTarget)) setGroup(group, false);
+    });
+  });
+  document.addEventListener('click', (e) => {
+    navGroups.forEach((group) => {
+      if (!group.contains(e.target)) setGroup(group, false);
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    const open = navGroups.find((group) => group.classList.contains('is-open'));
+    if (e.key !== 'Escape' || !open) return;
+    setGroup(open, false);
+    open.querySelector('.nav-group-toggle').focus();
+  });
+
+  // Blog, tablet and up: the first articles show; "Ver todos os artigos" opens the rest (CSS hides them)
+  const blogGrid = document.querySelector('.blog-grid');
+  const blogMore = document.querySelector('.blog-more');
+  const blogMoreBtn = blogMore && blogMore.querySelector('button');
+  const setBlogExpanded = (open) => {
+    if (!blogGrid || !blogMoreBtn) return [];
+    const hidden = [...blogGrid.children].filter((card) => !card.getClientRects().length);
+    blogGrid.classList.toggle('is-expanded', open);
+    blogMoreBtn.setAttribute('aria-expanded', String(open));
+    blogMoreBtn.textContent = open ? 'Mostrar menos' : 'Ver todos os artigos';
+    if (!open) return [];
+    hidden.forEach((card, i) => {
+      // Cards that were hidden skip the scroll reveal and fade in now instead
+      card.removeAttribute('data-reveal');
+      card.classList.remove('is-revealed');
+      card.style.setProperty('--enter-i', i);
+      card.classList.add('is-entering');
+      card.addEventListener('animationend', () => card.classList.remove('is-entering'), { once: true });
+    });
+    return hidden;
+  };
+  if (blogGrid && blogMoreBtn) {
+    blogGrid.classList.add('is-collapsible');
+    blogMore.hidden = false;
+    blogMoreBtn.addEventListener('click', () => {
+      const open = !blogGrid.classList.contains('is-expanded');
+      const shown = setBlogExpanded(open);
+      // Opening: focus moves to the first new article. Closing: back to the top of the list.
+      if (open && shown.length) shown[0].querySelector('.blog-open').focus({ preventScroll: true });
+      if (!open) {
+        const motion = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+        blogGrid.scrollIntoView({ block: 'start', behavior: motion ? 'smooth' : 'auto' });
+      }
+    });
+  }
+
+  // Blog: each card opens its full article in a native <dialog>
+  // (Esc closes, focus returns to the card's button; a click on the backdrop closes too)
+  const openArticle = (card) => {
+    const dialog = card && card.querySelector('.article-dialog');
+    if (!dialog || typeof dialog.showModal !== 'function' || dialog.open) return;
+    if (!card.getClientRects().length) setBlogExpanded(true); // article hidden behind "Ver todos"
+    dialog.showModal();
+    dialog.querySelector('.article-title').focus();
+  };
+  document.querySelectorAll('.blog-card').forEach((card) => {
+    const dialog = card.querySelector('.article-dialog');
+    card.querySelector('.blog-open').addEventListener('click', () => openArticle(card));
+    dialog.querySelector('.article-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    // Back to the card's button however the article was opened (click, hash link)
+    dialog.addEventListener('close', () => card.querySelector('.blog-open').focus({ preventScroll: true }));
+  });
+  // Reviews: on phones long texts are cut at 6 lines (CSS); "Ler mais" shows the rest.
+  // The button only appears on cards whose text is actually cut.
+  const reviewQuery = window.matchMedia('(max-width: 719.98px)');
+  const reviewSyncs = [...document.querySelectorAll('.review-card')].map((card) => {
+    const text = card.querySelector('.review-text p');
+    const more = document.createElement('button');
+    more.type = 'button';
+    more.className = 'review-more';
+    const setExpanded = (open) => {
+      card.classList.toggle('is-expanded', open);
+      more.setAttribute('aria-expanded', String(open));
+      more.textContent = open ? 'Ler menos' : 'Ler mais';
+    };
+    more.addEventListener('click', () => setExpanded(!card.classList.contains('is-expanded')));
+    card.querySelector('.review-text').after(more);
+    setExpanded(false);
+
+    return () => {
+      if (!reviewQuery.matches) setExpanded(false);
+      more.hidden = !card.classList.contains('is-expanded') && text.scrollHeight <= text.clientHeight + 1;
+    };
+  });
+  const syncReviews = () => reviewSyncs.forEach((sync) => sync());
+  syncReviews();
+  if (document.fonts) document.fonts.ready.then(syncReviews);
+  reviewQuery.addEventListener('change', syncReviews);
+  window.addEventListener('resize', syncReviews);
+
+  // Direct links like #artigo-menopausa open that article
+  const openFromHash = () => {
+    if (!location.hash.startsWith('#artigo-')) return;
+    openArticle(document.getElementById(location.hash.slice(1)));
+  };
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+
   // Plan lists: accordion on mobile, always open on wider screens for comparison
   const planDetails = [...document.querySelectorAll('.plan-details')];
   const wideQuery = window.matchMedia('(min-width: 720px)');
@@ -316,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Spotlight cards (adapted from 21st.dev "Spotlight Card"): glow follows the mouse
-  document.querySelectorAll('.plan, .care-node, .diff-item, .info-item, .proc-list, .contact-item')
+  document.querySelectorAll('.plan, .care-node, .diff-item, .info-item, .proc-list, .contact-item, .review-card, .blog-card')
     .forEach((el) => el.classList.add('spotlight'));
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     let spot = null;
@@ -342,9 +465,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Nav state on scroll: header border + link of the section in view.
   // Sections without a nav link (Abordagem, Informações) keep the previous link lit.
   const links = navLinks ? [...navLinks.querySelectorAll('a[href^="#"]')] : [];
+  // Sorted by position on the page: inside the groups the link order differs from the section order
   const tracked = links
     .map((link) => ({ link, section: document.querySelector(link.getAttribute('href')) }))
-    .filter((item) => item.section);
+    .filter((item) => item.section)
+    .sort((a, b) => (a.section.compareDocumentPosition(b.section) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
 
   let ticking = false;
   const updateNav = () => {
@@ -354,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrolled = window.scrollY > 8;
     const probe = window.innerHeight * 0.45;
     const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-    let current = tracked[0];
+    let current = null; // still in the hero: nothing lit
     tracked.forEach((item) => {
       if (item.section.getBoundingClientRect().top <= probe) current = item;
     });
@@ -364,6 +489,9 @@ document.addEventListener('DOMContentLoaded', () => {
     tracked.forEach(({ link }) => {
       if (current && link === current.link) link.setAttribute('aria-current', 'true');
       else link.removeAttribute('aria-current');
+    });
+    navGroups.forEach((group) => {
+      group.classList.toggle('has-current', Boolean(current && group.contains(current.link)));
     });
   };
 
@@ -396,12 +524,17 @@ document.addEventListener('DOMContentLoaded', () => {
     ['.plans', (el) => el.children],
     ['.proc-wrap', (el) => el.querySelectorAll('.notice, .proc')],
     ['.diff-grid', (el) => el.children],
+    ['.reviews-grid', (el) => el.children],
     ['.info-list', (el) => el.children],
+    ['.blog-grid', (el) => el.children],
+    ['.faq-list', (el) => el.children],
   ];
   const revealSingles = [
     ['.about-photo', 'leaf'],
     ['.credential', ''],
+    ['.reviews-summary', ''],
     ['.info-highlight', ''],
+    ['.faq-help', ''],
     ['.contact-panel', ''],
   ];
 

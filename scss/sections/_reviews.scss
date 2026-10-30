@@ -1,0 +1,277 @@
+@use "../abstracts" as *;
+
+// Avaliações: Google summary card + patient reviews.
+//   < md   summary, then the reviews in a swipe row
+//   md     summary on top, reviews in two masonry columns
+//   ≥ lg   summary pinned on the left, reviews on the right
+
+.reviews-layout {
+  display: grid;
+  gap: 1.5rem;
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+}
+
+.stars {
+  display: inline-flex;
+  gap: 0.2rem;
+  color: $caramel;
+  font-size: 0.9rem;
+}
+
+// ---------- Summary ----------
+.reviews-summary {
+  display: grid;
+  justify-items: start;
+  gap: 0.35rem;
+  padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+  border-radius: 28px 12px 28px 12px;
+  background: $cafe;
+  color: rgba($cream, 0.82);
+  @include focus-on-dark;
+
+  .stars {
+    color: $sand;
+    font-size: 1.1rem;
+  }
+
+  .btn-outline {
+    border-color: rgba($cream, 0.35);
+    color: $cream;
+
+    &:hover {
+      border-color: $cream;
+      background: rgba($cream, 0.08);
+    }
+  }
+
+  @include up(lg) {
+    position: sticky;
+    top: calc($header-h + 2rem);
+  }
+
+  // Phones and tablets: score beside the stars, buttons below — about half the height
+  @include down(lg) {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 1rem;
+    row-gap: 0.1rem;
+    padding: 1.25rem;
+
+    .reviews-google {
+      display: none;
+    }
+
+    .reviews-score {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      font-size: 3rem;
+    }
+
+    .stars {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: end;
+    }
+
+    .reviews-caption {
+      grid-column: 2;
+      grid-row: 2;
+      align-self: start;
+      font-size: 0.875rem;
+    }
+
+    .reviews-actions {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      margin-top: 1rem;
+    }
+  }
+}
+
+.reviews-google {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: $sand;
+}
+
+.reviews-score {
+  font-family: $font-display;
+  font-size: clamp(3rem, 2.4rem + 2vw, 4.25rem);
+  line-height: 1;
+  color: $cream;
+}
+
+.reviews-caption {
+  font-size: 0.9375rem;
+}
+
+.reviews-actions {
+  display: grid;
+  gap: 0.6rem;
+  width: 100%;
+  margin-top: 1.25rem;
+
+  @include between(md, lg) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// ---------- Reviews ----------
+.reviews-grid {
+  @include down(md) {
+    @include rail;
+    padding-block: 0.25rem;
+  }
+
+  @include up(md) {
+    columns: 2;
+    column-gap: 1.25rem;
+  }
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px solid $line;
+  border-radius: $radius;
+  background: $cream;
+  transition:
+    transform 0.35s $ease-out,
+    border-color 0.35s $ease-out,
+    --spot-o 0.35s $ease-out;
+
+  @include up(md) {
+    margin-bottom: 1.25rem;
+    break-inside: avoid;
+  }
+
+  @include hover-fine {
+    &:hover {
+      transform: translateY(-3px);
+      border-color: rgba($caramel, 0.5);
+    }
+  }
+}
+
+.review-quote {
+  font-size: 2.25rem;
+  line-height: 0.6;
+  color: rgba($caramel, 0.45);
+}
+
+.review-text {
+  margin: 0;
+  color: $ink;
+  font-size: 1rem;
+  line-height: 1.65;
+
+  // Phones: long reviews are cut at 6 lines so the swipe cards stay compact;
+  // script.js adds "Ler mais" where text is actually cut
+  @include down(md) {
+    p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 6;
+      line-clamp: 6;
+      overflow: hidden;
+    }
+
+    .is-expanded & p {
+      display: block;
+      -webkit-line-clamp: unset;
+      line-clamp: unset;
+      overflow: visible;
+    }
+  }
+}
+
+// While one review is open, the others keep their own (shorter) height
+.reviews-grid:has(.is-expanded) {
+  @include down(md) {
+    align-items: flex-start;
+  }
+}
+
+.review-more {
+  align-self: flex-start;
+  min-height: 32px;
+  margin-top: -0.35rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: $caramel-700;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba($caramel-700, 0.35);
+  text-underline-offset: 3px;
+  cursor: pointer;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.review-author {
+  display: grid;
+  gap: 0.15rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid $line;
+}
+
+.review-name {
+  font-weight: 600;
+  color: $ink;
+}
+
+.review-date {
+  font-size: 0.8125rem;
+  color: $ink-muted;
+}
+
+.review-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+}
+
+.review-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: $ink-muted;
+}
+
+.review-link {
+  color: $caramel-700;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba($caramel-700, 0.35);
+  text-underline-offset: 3px;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+.reviews-notice {
+  max-width: 70ch;
+  margin: 2rem auto 0;
+  font-size: 0.8125rem;
+  color: $ink-muted;
+  text-align: center;
+}

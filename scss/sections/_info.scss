@@ -50,7 +50,7 @@
     padding: 1.25rem;
     border: 1px solid $line;
     border-radius: $radius;
-    background: $cream;
+    background: $white; // the section is cream now
 
     &:first-child {
       padding-top: 1.25rem;
@@ -76,16 +76,12 @@
 }
 
 .info-icon {
-  @include icon-tile(40px, 12px, $sand-soft, $cafe, 1.15rem);
+  // Sand tile: stands out on the cream section and the cream cards
+  @include icon-tile(40px, 12px, $sand, $cafe, 1.15rem);
   transition:
     background-color 0.3s $ease-out,
     color 0.3s $ease-out,
     transform 0.4s $ease-out;
-
-  // Stands out from the cream card on phones
-  @include down(md) {
-    background: $sand;
-  }
 
   @include up(md) {
     width: 48px;

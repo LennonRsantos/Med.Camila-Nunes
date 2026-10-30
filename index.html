@@ -70,6 +70,80 @@
   }
   </script>
 
+  <!-- Schema.org FAQPage: same questions as the FAQ section -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Como agendar uma consulta?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "O agendamento é feito diretamente pelo WhatsApp, na tela de contato desta página. É a forma mais rápida: você fala diretamente com a equipe, tira dúvidas iniciais e escolhe o melhor horário. Os botões de agendamento espalhados pelo site já abrem a conversa com a mensagem pronta — é só enviar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O atendimento é presencial ou online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As consultas podem ser realizadas presencial ou online, com o mesmo valor nos dois formatos. As consultas presenciais acontecem em consultório em Águas Claras-DF; a opção online atende quem precisa de praticidade ou está fora de Brasília."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual a diferença entre a Consulta Inicial e a Consulta de Continuidade?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Consulta Inicial de Cuidado da Mulher (1h30) é a porta de entrada: construímos juntas a compreensão completa da sua saúde — história, exames e objetivos. A Consulta de Continuidade (1h) é para o acompanhamento: revisar exames, ajustar o plano de cuidado e evoluir o que já foi iniciado. Detalhes de cada formato estão na seção Consultas, acima."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "A Dra. Camila substitui minha ginecologista?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. Como o próprio site resume: não substituo a ginecologia, mas amplio a abordagem. O papel da Medicina de Família e Comunidade é olhar a mulher como um todo — conectando ginecologia, saúde hormonal, mental e metabólica — e coordenar o cuidado entre especialistas, para que nada fique fragmentado."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O que devo levar à primeira consulta?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para aproveitar bem a hora e meia, idealmente traga: a lista completa de medicamentos em uso, exames recentes que você tenha e anotações sobre seu ciclo menstrual, sintomas e histórico familiar relevante. Não precisa ter tudo perfeito — o essencial é construirmos juntas a história completa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Onde as consultas acontecem?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As consultas presenciais acontecem em consultório em Águas Claras-DF, e as online podem ser feitas de qualquer lugar. O atendimento acontece de segunda a sexta, das 08h às 18h."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Posso tirar dúvidas antes de decidir agendar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. O WhatsApp está aberto para dúvidas iniciais antes de agendar — faz parte do cuidado. Uma observação importante: em caso de urgência ou emergência, procure o serviço de urgência mais próximo; o WhatsApp não substitui atendimento de emergência."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O atendimento é particular? Emite recibo para reembolso?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim. O atendimento é exclusivamente particular, sem vínculo direto com planos de saúde. Para cada consulta e procedimento é emitido recibo, que você pode utilizar para solicitar o reembolso junto ao seu plano de saúde, conforme as regras do seu contrato. Havendo dúvidas sobre o processo, o WhatsApp está disponível para orientar."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Google Fonts: Young Serif & Hanken Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,12 +175,32 @@
 
       <nav class="site-nav" aria-label="Principal">
         <ul class="nav-links" id="navLinks">
-          <li><a href="#inicio">Início</a></li>
           <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#consultas">Consultas</a></li>
-          <li><a href="#procedimentos">Procedimentos</a></li>
-          <li><a href="#diferenciais">Diferenciais</a></li>
-          <li><a href="#contato">Contato</a></li>
+          <!-- Groups: dropdown on desktop, titled list in the mobile panel -->
+          <li class="nav-group">
+            <span class="nav-group-label">Atendimento</span>
+            <button type="button" class="nav-group-toggle" aria-expanded="false" aria-controls="nav-atendimento">
+              Atendimento <i class="bi bi-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="nav-sub" id="nav-atendimento">
+              <li><a href="#abordagem">Abordagem</a></li>
+              <li><a href="#consultas">Consultas</a></li>
+              <li><a href="#procedimentos">Procedimentos</a></li>
+              <li><a href="#diferenciais">Diferenciais</a></li>
+              <li><a href="#informacoes">Informações</a></li>
+            </ul>
+          </li>
+          <li><a href="#avaliacoes">Avaliações</a></li>
+          <li class="nav-group">
+            <span class="nav-group-label">Conteúdo</span>
+            <button type="button" class="nav-group-toggle" aria-expanded="false" aria-controls="nav-conteudo">
+              Conteúdo <i class="bi bi-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="nav-sub" id="nav-conteudo">
+              <li><a href="#blog">Blog</a></li>
+              <li><a href="#faq">Perguntas frequentes</a></li>
+            </ul>
+          </li>
           <li class="nav-cta">
             <a href="https://wa.me/5561993314896" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" data-cta="nav">
               <i class="bi bi-whatsapp" aria-hidden="true"></i>
@@ -452,8 +546,110 @@
       </div>
     </section>
 
-    <!-- 7. Informações Importantes -->
-    <section id="informacoes" class="section section-white">
+    <!-- 7. Avaliações -->
+    <section id="avaliacoes" class="section section-white">
+      <div class="container">
+        <header class="section-head section-head-center">
+          <p class="section-label">Depoimentos</p>
+          <h2 class="section-title" id="avaliacoes-titulo">O que dizem as pacientes</h2>
+          <p class="section-intro">A experiência de quem já confiou o cuidado da sua saúde à Dra. Camila Nunes.</p>
+        </header>
+
+        <div class="reviews-layout">
+          <aside class="reviews-summary">
+            <i class="bi bi-google reviews-google" aria-hidden="true"></i>
+            <p class="reviews-score">5.0</p>
+            <span class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+            <p class="reviews-caption">Avaliações verificadas no Google</p>
+            <div class="reviews-actions">
+              <a href="https://share.google/qaRcw5XCvUo4ppY78" target="_blank" rel="noopener noreferrer" class="btn btn-sand btn-block">Deixar minha avaliação</a>
+              <a href="https://share.google/qaRcw5XCvUo4ppY78" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block">Ver avaliações no Google</a>
+            </div>
+          </aside>
+
+          <div class="reviews-grid" data-rail data-rail-label="avaliacoes-titulo">
+            <figure class="review-card">
+              <i class="bi bi-quote review-quote" aria-hidden="true"></i>
+              <span class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+              <blockquote class="review-text"><p>Minha experiência com a Dra. Camila foi simplesmente excelente! Fiz a aplicação do meu Implanon com ela e cheguei ao consultório com muito medo, mas desde o primeiro momento ela me transmitiu muita segurança e confiança. O atendimento foi impecável, desde a consulta antes da colocação até todo o acompanhamento depois do procedimento, sempre muito atenciosa e disposta a esclarecer todas as minhas dúvidas. Ela conduziu tudo com muito profissionalismo, cuidado e carinho. Recomendo a Dra. Camila para quem procura uma profissional competente e humana!</p></blockquote>
+              <figcaption class="review-author">
+                <span class="review-name">Isabela Ferreira</span>
+                <span class="review-meta">
+                  <span class="review-source"><i class="bi bi-google" aria-hidden="true"></i> Avaliação do Google</span>
+                  <a href="https://share.google/qaRcw5XCvUo4ppY78" target="_blank" rel="noopener noreferrer" class="review-link">Ler avaliação original</a>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="review-card">
+              <i class="bi bi-quote review-quote" aria-hidden="true"></i>
+              <span class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+              <blockquote class="review-text"><p>A Dra Camila é maravilhosa. Muito atenciosa e profissional. Indico com confiança.</p></blockquote>
+              <figcaption class="review-author">
+                <span class="review-name">Netelin Muniz de Andrade</span>
+                <span class="review-date">há 3 meses</span>
+                <span class="review-meta">
+                  <span class="review-source"><i class="bi bi-google" aria-hidden="true"></i> Avaliação do Google</span>
+                  <a href="https://share.google/qaRcw5XCvUo4ppY78" target="_blank" rel="noopener noreferrer" class="review-link">Ler avaliação original</a>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="review-card">
+              <i class="bi bi-quote review-quote" aria-hidden="true"></i>
+              <span class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+              <blockquote class="review-text"><p>Atenciosa em cada detalhe do seu atendimento.</p></blockquote>
+              <figcaption class="review-author">
+                <span class="review-name">Andreia Nunes</span>
+                <span class="review-meta">
+                  <span class="review-source"><i class="bi bi-google" aria-hidden="true"></i> Avaliação do Google</span>
+                  <a href="https://share.google/qaRcw5XCvUo4ppY78" target="_blank" rel="noopener noreferrer" class="review-link">Ler avaliação original</a>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="review-card">
+              <i class="bi bi-quote review-quote" aria-hidden="true"></i>
+              <span class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+              <blockquote class="review-text"><p>Melhor Dra. Que já consultei. Muito prestativa e educada. Me tirou todas as dúvidas.</p></blockquote>
+              <figcaption class="review-author">
+                <span class="review-name">Jessyca Moura</span>
+                <span class="review-meta">
+                  <span class="review-source"><i class="bi bi-google" aria-hidden="true"></i> Avaliação do Google</span>
+                  <a href="https://share.google/qaRcw5XCvUo4ppY78" target="_blank" rel="noopener noreferrer" class="review-link">Ler avaliação original</a>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="review-card">
+              <i class="bi bi-quote review-quote" aria-hidden="true"></i>
+              <span class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+              <blockquote class="review-text"><p>Atendimento humanizado, doutora bem atenciosa e esclarece todas as dúvidas.</p></blockquote>
+              <figcaption class="review-author">
+                <span class="review-name">Cecilia Genoefa Alves Furlan</span>
+                <span class="review-meta">
+                  <span class="review-source"><i class="bi bi-google" aria-hidden="true"></i> Avaliação do Google</span>
+                  <a href="https://share.google/qaRcw5XCvUo4ppY78" target="_blank" rel="noopener noreferrer" class="review-link">Ler avaliação original</a>
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="review-card">
+              <i class="bi bi-quote review-quote" aria-hidden="true"></i>
+              <span class="stars" role="img" aria-label="Avaliação: 5 de 5 estrelas"><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+              <blockquote class="review-text"><p>Excelente Médica! Atenciosa, cuidadosa e com muito conhecimento sobre as mais diversas áreas. Vale a pena uma consulta!!</p></blockquote>
+              <figcaption class="review-author">
+                <span class="review-name">Alynne de Morais</span>
+                <span class="review-meta">
+                  <span class="review-source"><i class="bi bi-google" aria-hidden="true"></i> Avaliação do Google</span>
+                  <a href="https://share.google/qaRcw5XCvUo4ppY78" target="_blank" rel="noopener noreferrer" class="review-link">Ler avaliação original</a>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <p class="reviews-notice">Relatos espontâneos registrados por pacientes no Google Meu Negócio. Em conformidade com a Resolução CFM nº 2.336/2023, as avaliações refletem exclusivamente a experiência pessoal de cada paciente e não garantem resultados idênticos para outros tratamentos.</p>
+      </div>
+    </section>
+
+    <!-- 8. Informações Importantes -->
+    <section id="informacoes" class="section">
       <div class="container">
         <header class="section-head section-head-center">
           <p class="section-label">Transparência</p>
@@ -503,8 +699,565 @@
       </div>
     </section>
 
-    <!-- 8. Contato e Agendamento -->
-    <section id="contato" class="section section-white section-contact">
+    <!-- 9. Blog -->
+    <section id="blog" class="section section-white">
+      <div class="container">
+        <header class="section-head section-head-center">
+          <p class="section-label">Blog Informativo</p>
+          <h2 class="section-title" id="blog-titulo">Conteúdo sobre saúde da mulher</h2>
+          <p class="section-intro">Textos informativos escritos pela Dra. Camila para ajudar você a entender melhor o seu corpo e fazer escolhas conscientes sobre a sua saúde.</p>
+        </header>
+
+        <div class="blog-grid" id="blog-lista" data-rail data-rail-label="blog-titulo">
+            <article class="blog-card" id="artigo-candidiase">
+              <p class="blog-meta">
+              <span class="blog-tag">Saúde Íntima</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 5 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Candidíase: por que ela aparece e o que fazer quando volta sempre</h3>
+              <p class="blog-summary">Candida habita naturalmente a vagina e só causa sintomas quando o equilíbrio se rompe. Entender os fatores que favorecem o episódio — e o que fazer quando ele se torna recorrente — evita tratamentos desnecessários.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-candidiase">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-candidiase" aria-labelledby="dialog-candidiase-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Saúde Íntima</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 5 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-candidiase-titulo" tabindex="-1">Candidíase: por que ela aparece e o que fazer quando volta sempre</h2>
+                  <div class="article-body">
+                    <p>A candidíase vulvovaginal é uma das queixas mais frequentes no consultório — e, ao mesmo tempo, uma das mais mal interpretadas. O fungo Candida habita naturalmente a vagina e o intestino de boa parte das mulheres saudáveis, e isso por si só não é doença. Doença é quando o equilíbrio da flora se rompe e o fungo se prolifera, provocando prurido intenso, ardência, vermelhidão na vulva e corrimento branco, grumoso, semelhante a queijo cottage.</p>
+                    <p>Não se trata de uma infecção sexualmente transmissível: a candidíase pode surgir mesmo em mulheres que não têm relações sexuais. O que favorece o episódio são situações que alteram o ambiente vaginal — uso recente de antibióticos, gestação, diabetes descontrolado, imunidade comprometida, estrogênio em doses elevadas e a combinação de calor e umidade prolongada, como roupas apertadas e biquíni úmido por muito tempo.</p>
+                    <p>O tratamento correto é feito com antifúngicos do grupo dos azóis, tópicos ou orais, prescritos após o diagnóstico correto. E aqui mora o principal erro que vejo: nem todo corrimento é candidíase. Vaginose bacteriana, por exemplo, tem aparência e tratamento completamente diferentes — usar antifúngico para um problema bacteriano não resolve nada e ainda desequilíbra mais a flora.</p>
+                    <p>Quando a candidíase volta quatro ou mais vezes ao ano, deixamos de falar em episódio isolado e passamos a falar de candidíase recorrente, que merece investigação de verdade: glicemia e pesquisa de diabetes, avaliação imunológica e revisão dos medicamentos em uso. Nesses casos, além do tratamento do episódio agudo, costuma-se indicar um esquema de manutenção prolongada, definido individualmente. Receitas caseiras, duchas internas e sabonetes antibacterianos não tratam — pioram o equilíbrio vaginal que justamente precisamos preservar.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>Donders GG et al. Management of recurrent vulvovaginal candidosis: narrative review and European expert panel opinion. Frontiers in Cellular and Infection Microbiology, 2022.</li>
+                      <li>CDC. Sexually Transmitted Infections Treatment Guidelines, 2021.</li>
+                      <li>Manual MSD — Candidíase vulvovaginal.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Candidíase%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-candidiase">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-vaginose">
+              <p class="blog-meta">
+              <span class="blog-tag">Saúde Íntima</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 5 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Vaginose bacteriana: o corrimento que tem odor e o que ele significa</h3>
+              <p class="blog-summary">Diferente da candidíase, a vaginose é causada por um desequilíbrio bacteriano e costuma provocar corrimento fino e acinzentado com odor forte. Diagnóstico correto evita tratamentos ineficazes.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-vaginose">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-vaginose" aria-labelledby="dialog-vaginose-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Saúde Íntima</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 5 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-vaginose-titulo" tabindex="-1">Vaginose bacteriana: o corrimento que tem odor e o que ele significa</h2>
+                  <div class="article-body">
+                    <p>A vaginose bacteriana é a causa mais comum de corrimento vaginal na mulher em idade reprodutiva — mais comum, inclusive, que a candidíase. Diferente do que muitas imaginam, ela não é causada por um único "germe invasor", mas por um desequilíbrio do ecossistema vaginal: os lactobacilos, bactérias protetoras que mantêm o meio ácido, diminuem, e bactérias como a Gardnerella vaginalis se multiplicam sem controle.</p>
+                    <p>O quadro típico é de corrimento fino, homogêneo, acinzentado, com odor forte de peixe — odor que frequentemente piora após relações sexuais ou durante a menstruação. Prurido intenso e ardência, marca registrada da candidíase, geralmente não dominam o quadro. Essa diferença clínica é justamente o que orienta o diagnóstico, confirmado no consultório por critérios estabelecidos, como o de Amsel, e quando necessário por exame laboratorial.</p>
+                    <p>O tratamento é feito com antibióticos — metronidazol ou clindamicina, orais ou vaginais — e funciona bem quando o diagnóstico está correto. Recomendo reforçar dois pontos: primeiro, a vaginose não é considerada uma doença sexualmente transmissível clássica, embora esteja associada a maior risco de contrair outras infecções quando presente; segundo, na gestação merece atenção redobrada por sua associação com complicações como o parto prematuro, e deve ser avaliada pelo médico que acompanha o pré-natal.</p>
+                    <p>Para prevenir as recidivas, o mais importante é proteger a flora: evitar duchas internas, não usar sabonetes íntimos antibacterianos em excesso, preferir algodão e trocar roupas úmidas rapidamente. O papel dos probióticos vaginais é ainda objeto de estudo — posso orientar sobre quando eles fazem sentido, mas não substituem o tratamento do episódio ativo.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>CDC. Sexually Transmitted Infections Treatment Guidelines, 2021.</li>
+                      <li>Manual MSD — Vaginose bacteriana.</li>
+                      <li>FEBRASGO — Comissões Nacionais Especializadas em Ginecologia.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Vaginose%20Bacteriana%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-vaginose">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-sangramento">
+              <p class="blog-meta">
+              <span class="blog-tag">Ginecologia</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 6 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Sangramento uterino anormal: quando o fluxo sai do padrão</h3>
+              <p class="blog-summary">Sangramento fora do padrão — mais abundante, prolongado, irregular ou fora do período esperado — é comum, mas nunca deve ser normalizado. A classificação FIGO ajuda a organizar as causas e a investigação.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-sangramento">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-sangramento" aria-labelledby="dialog-sangramento-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Ginecologia</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 6 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-sangramento-titulo" tabindex="-1">Sangramento uterino anormal: quando o fluxo sai do padrão</h2>
+                  <div class="article-body">
+                    <p>Chamamos de sangramento uterino anormal (SUA) qualquer sangramento que fuja do padrão normal do ciclo: fluxo mais abundante ou prolongado, menstruações que se tornam irregulares ou muito próximas, sangramento entre as menstruações, após relações sexuais ou depois da menopausa. O sangramento uterino anormal é uma das queixas mais comuns da ginecologia e pode afetar mais da metade das mulheres em alguma fase da vida reprodutiva — mas a frequência com que ele é normalizado é, infelizmente, igualmente comum.</p>
+                    <p>A Federação Internacional de Ginecologia e Obstetrícia (FIGO) organiza as causas em um sistema que usa a sigla PALM-COEIN. O grupo PALM reúne as causas estruturais — algo fisicamente presente no útero: pólipos, adenomiose, miomas e, mais raramente, malignidades. O grupo COEIN reúne as causas não estruturais: distúrbios de coagulação, disfunção ovulatória (quando o ciclo não ovula de forma regular, muito comum em adolescentes e no climatério), alterações do próprio endométrio e causas iatrogênicas — como efeitos de contraceptivos, anticoagulantes e outros medicamentos.</p>
+                    <p>A investigação começa sempre pela história completa: o padrão do sangramento, os medicamentos em uso, a história familiar de doenças de coagulação — muitas mulheres descobrem na vida adulta que têm um distúrbio de coagulação que sempre foi atribuído a "menstruação forte". Os exames iniciais incluem hemograma, avaliação de função tireoidiana e hormônios conforme o caso, além da ultrassonografia pélvica. Em fases da vida específicas — perimenopausa e pós-menopausa, sobretudo — a investigação é mais criteriosa e pode incluir avaliação do endométrio.</p>
+                    <p>O ponto central que quero deixar: fluxo intenso crônico não é algo a se conviver sem avaliação. A anemia por deficiência de ferro é a consequência mais frequente, com cansaço, queda de cabelo, falta de ar e queda no desempenho diário que as pacientes frequentemente atribuem à rotina. Se o seu sangramento saiu do padrão, ou sempre foi abundante ao ponto de limitar sua vida, vale investigar — existe causa identificável e tratamento adequado para a grande maioria dos casos.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>Jain V, Munro MG, Critchley HOD. Contemporary evaluation of women and girls with abnormal uterine bleeding: FIGO Systems 1 and 2. International Journal of Gynecology &amp; Obstetrics, 2023.</li>
+                      <li>Munro MG, Critchley HOD, Fraser IS. The two FIGO systems: 2018 revisions. International Journal of Gynecology &amp; Obstetrics, 2018.</li>
+                      <li>FEBRASGO.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Sangramento%20Uterino%20Anormal%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-sangramento">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-menopausa">
+              <p class="blog-meta">
+              <span class="blog-tag">Climatério e Menopausa</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 6 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Menopausa: o que esperar e como se preparar para essa fase</h3>
+              <p class="blog-summary">O climatério é uma transição natural, mas os sintomas podem impactar a qualidade de vida. Entender o que acontece com o corpo é o primeiro passo para vivê-la com conforto e autonomia.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-menopausa">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-menopausa" aria-labelledby="dialog-menopausa-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Climatério e Menopausa</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 6 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-menopausa-titulo" tabindex="-1">Menopausa: o que esperar e como se preparar para essa fase</h2>
+                  <div class="article-body">
+                    <p>O climatério é a transição da fase reprodutiva para a fase não reprodutiva da vida da mulher, e a menopausa é um marco dentro dele: a última menstruação, confirmada retroativamente após doze meses consecutivos sem menstruar. No Brasil, a menopausa ocorre em média entre os 48 e 52 anos, mas a transição começa anos antes, com ciclos que se tornam irregulares e oscilações hormonais amplas — é essa fase inicial, muitas vezes sintomática e confusa, que chamo de "o que ninguém te contou sobre os 40".</p>
+                    <p>Os sintomas variam muito entre mulheres: ondas de calor e sudorese noturna são os mais clássicos, mas insônia, alterações de humor, ansiedade, secura vaginal, diminuição da libido, alterações de peso e do sono também fazem parte do quadro. Intensidade e duração variam de mulher para mulher — e é justamente essa variabilidade que gera dúvida: o que é climatério e o que é outra condição? Na minha consulta, a resposta vem de uma avaliação completa, que considera o padrão dos sintomas, o histórico de saúde e exames quando necessários.</p>
+                    <p>O preparo para essa fase é uma oportunidade de cuidado preventivo. A queda do estrogênio tem consequências de longo prazo que vão além dos sintomas: perda de densidade óssea, alterações metabólicas e do perfil cardiovascular. Por isso avalio, junto com a paciente, rastreamento de saúde óssea, metabólica e cardiovascular, além da revisão de hábitos — sono, atividade física e alimentação que sustentam essa transição.</p>
+                    <p>Sobre a terapia hormonal, minha postura é sempre de decisão compartilhada e individualizada: ela é uma ferramenta excelente e segura para muitas mulheres, mas não é obrigatória nem universal — depende do perfil de sintomas, da fase do climatério, do histórico clínico e das preferências da paciente. O que não pode é atravessar essa fase sem informação. Mulher que entende o que está acontecendo com o próprio corpo escolhe melhor e vive essa transição com muito mais conforto.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>FEBRASGO — Comissão Nacional Especializada em Climatério.</li>
+                      <li>The Menopause Society — Position Statement on Hormone Therapy.</li>
+                      <li>Manual MSD — Climatério.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Menopausa%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-menopausa">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-ansiedade">
+              <p class="blog-meta">
+              <span class="blog-tag">Saúde Mental</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 5 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Ansiedade e ciclo hormonal: existe relação?</h3>
+              <p class="blog-summary">As oscilações de estrogênio e progesterona modulam diretamente neurotransmissores ligados ao humor. Reconhecer o padrão dos sintomas ao longo do ciclo é o ponto de partida para o cuidado adequado.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-ansiedade">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-ansiedade" aria-labelledby="dialog-ansiedade-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Saúde Mental</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 5 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-ansiedade-titulo" tabindex="-1">Ansiedade e ciclo hormonal: existe relação?</h2>
+                  <div class="article-body">
+                    <p>Existe, sim, e a base é fisiológica: o estrogênio e a progesterona modulam diretamente neurotransmissores centrais no humor e na ansiedade, como a serotonina e o GABA. Quando esses hormônios oscilam — na fase pré-menstrual, no pós-parto, na perimenopausa — o cérebro sente. Não é falta de controle emocional, não é "frescura": é uma interação real entre eixo hormonal e sistema nervoso.</p>
+                    <p>Esse espectro vai desde uma tensão pré-menstrual leve, que quase toda mulher conhece, até o Transtorno Disfórico Pré-Menstrual (TDPM), reconhecido pela classificação psiquiátrica internacional: sintomas intensos de ansiedade, tristeza, irritabilidade ou labilidade emocional na semana que antecede a menstruação, que melhoram após ela e comprometem de fato o trabalho, os estudos e os relacionamentos. Entre os dois extremos existe toda uma variedade de experiências que merecem escuta e cuidado.</p>
+                    <p>Momentos de transição hormonal ampla são os períodos de maior vulnerabilidade: a perimenopausa — quando as oscilações de estrogênio são as mais intensas da vida reprodutiva — e o pós-parto são períodos clássicos de aparecimento ou piora de quadros ansiosos e depressivos. Em mulheres que já têm histórico de ansiedade, essas transições frequentemente desestabilizam um quadro que estava controlado.</p>
+                    <p>O que eu faço na prática com essa relação? Primeiro, documentar: um diário simples de humor e ciclo por dois a três meses revela padrões que a memória não alcança. Depois, planejar o cuidado conforme o padrão encontrado — da estratégia de estilo de vida ao tratamento medicamentoso quando indicado, sempre individualizado. Reconhecer o padrão é, muitas vezes, o que devolve à mulher a sensação de que ela está no comando, e não o seu ciclo.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>American Psychiatric Association. DSM-5-TR — Transtorno Disfórico Pré-Menstrual.</li>
+                      <li>The Menopause Society — Recomendações sobre saúde mental na transição menopausal.</li>
+                      <li>FEBRASGO.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Ansiedade%20e%20Ciclo%20Hormonal%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-ansiedade">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-exames">
+              <p class="blog-meta">
+              <span class="blog-tag">Prevenção</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 8 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Exames de rotina: um guia por faixa etária</h3>
+              <p class="blog-summary">Cada fase da vida pede atenção a exames diferentes — do Papanicolau à densitometria óssea. Um guia prático do que avaliar em cada etapa, sempre com orientação médica individualizada.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-exames">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-exames" aria-labelledby="dialog-exames-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Prevenção</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 8 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-exames-titulo" tabindex="-1">Exames de rotina: um guia por faixa etária</h2>
+                  <div class="article-body">
+                    <p>Prevenção não é uma lista única de exames: é um plano que muda com a idade, o histórico e os fatores de risco de cada mulher. O que vale dos 20 não é o mesmo que vale dos 50 — e o excesso de exames desnecessários também faz mal, com falsos positivos e ansiedade sem benefício. O que segue é um guia geral; as decisões finais dependem da avaliação individual.</p>
+                    <p>Dos 18 aos 40 anos, os pilares são: o exame preventivo do colo do útero (Papanicolau), que começa aos 25 anos e, em resultados normais, mantém intervalos maiores entre repetições; a avaliação anual de pressão arterial, peso e hábitos; e a dosagem de glicemia e colesterol a partir dos 30 em quem tem fatores de risco — obesidade, histórico familiar, gestações com diabetes. É também a fase de verificar vacinação atualizada e discutir planejamento reprodutivo.</p>
+                    <p>A partir dos 40, entram as pautas do climatério: o rastreamento do câncer de mama com mamografia — de forma individualizada a partir dos 40 e de forma consolidada entre os 50 e 74 anos, conforme as diretrizes brasileiras —, a continuidade do acompanhamento de pressão, glicemia e colesterol, que se torna ainda mais importante com a transição hormonal, e a atenção à saúde óssea, sobretudo quando existem fatores de risco para osteoporose. O preventivo do colo segue até os 64 anos conforme o calendário. E, a partir dos 45 anos, a colonoscopia entra formalmente no rastreamento do câncer colorretal para quem tem risco médio: o exame avalia o intestino em sua totalidade e, quando não encontra alterações, costuma ser repetido em intervalos longos, geralmente a cada dez anos. O câncer de intestino é um dos mais frequentes no Brasil, e o rastreio permite diagnosticar e retirar lesões antes que evoluam para doença avançada; métodos de rastreio por amostras de fezes existem como alternativa e são discutidos caso a caso na consulta.</p>
+                    <p>A partir dos 65 anos, acrescenta-se a densitometria óssea, exame que mede a densidade mineral do osso e é a ferramenta padrão para o rastreio da osteoporose em mulheres. A justificativa é fisiológica: após a menopausa, a queda do estrogênio acelera a perda óssea, e a osteoporose é silenciosa — o primeiro sintoma, infelizmente, costuma ser a fratura. Diagnosticar antes disso permite tratar e reduzir o risco das fraturas de quadril e coluna que mais comprometem a autonomia na terceira idade. Mulheres com fatores de risco adicionais — menopausa precoce, uso prolongado de corticoides, histórico familiar de fratura por fragilidade, baixo peso — podem necessitar do exame mais cedo, sempre por decisão compartilhada.</p>
+                    <p>História familiar muda tudo: parente de primeiro grau com câncer de mama ou colorretal, casos de câncer de colo, doenças cardíacas precoces na família — cada um desses pontos antecipa ou intensifica o rastreamento. Por isso, mais importante do que decorar listas é manter uma consulta de avaliação periódica na qual esses fatores sejam revisados.</p>
+                    <p>Preventivo bem feito é silencioso: você quase não percebe, mas ele muda trajetórias.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>Ministério da Saúde — Manual Técnico de Ginecologia (rastreamento do câncer do colo do útero).</li>
+                      <li>INCA — Diretrizes de detecção precoce do câncer de mama.</li>
+                      <li>USPSTF — Screening for Colorectal Cancer (rastreamento a partir dos 45 anos).</li>
+                      <li>USPSTF — Screening for Osteoporosis (rastreamento em mulheres a partir dos 65 anos).</li>
+                      <li>Ministério da Saúde — Cadernos de Atenção Básica.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Exames%20de%20Rotina%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-exames">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-contracepcao">
+              <p class="blog-meta">
+              <span class="blog-tag">Planejamento Familiar</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 6 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Métodos contraceptivos: qual é o ideal para você?</h3>
+              <p class="blog-summary">Não existe método melhor em absoluto — existe o método que melhor se adequa ao seu corpo, sua rotina e seus planos. Conheça as principais opções e as perguntas certas para a consulta.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-contracepcao">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-contracepcao" aria-labelledby="dialog-contracepcao-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Planejamento Familiar</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 6 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-contracepcao-titulo" tabindex="-1">Métodos contraceptivos: qual é o ideal para você?</h2>
+                  <div class="article-body">
+                    <p>A pergunta que mais escuto é "qual o melhor anticoncepcional?" — e minha resposta é sempre a mesma: não existe o melhor em absoluto. Existe o melhor para você, que considera eficácia, segurança para o seu perfil de saúde, tolerância aos efeitos, rotina de vida, planos reprodutivos e até preferência pessoal. Método ideal é o que você consegue usar corretamente e se sente bem usando.</p>
+                    <p>Os métodos se organizam em grandes grupos. Os hormonais incluem os compostos combinados (estrogênio + progestagênio, em comprimidos, anel ou adesivo) e os exclusivamente progestagênicos — da pílula ao implante subdérmico de três anos, que dispensa rotina diária. Dentro dos dispositivos intrauterinos, existem duas famílias distintas: o DIU hormonal e o DIU de cobre, com características, efeitos e perfis indicados diferentes. Os métodos de barreira — preservativos — são os únicos que protegem simultaneamente de infecções sexualmente transmissíveis. E existem os métodos definitivos, como a laqueação tubária, que exigem decisão madura.</p>
+                    <p>A segurança é avaliada por critérios de elegibilidade internacionais, que classificam cada método para cada situação clínica. Alguns exemplos do que muda a escolha: enxaqueca com aura, tabagismo associado à idade acima de 35 anos, hipertensão descontrolada e histórico de trombose mudam o que é seguro ou não. É por isso que a escolha do método deve acontecer em consulta — com revisão do histórico, da pressão e, quando necessário, de exames — e não por indicação de amiga ou compra por conta própria.</p>
+                    <p>Minha orientação prática para a consulta: chegue pensando em três perguntas. Quero um método com rotina diária ou prefiro algo que esqueço depois de aplicado? Qual a importância de regular ou não o ciclo para mim? Tenho alguma condição de saúde que eu deva mencionar? Com essas respostas e a avaliação clínica, a escolha compartilhada se torna objetiva e tranquila — e o método passa a trabalhar a seu favor, e não como mais uma preocupação.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>CDC — U.S. Medical Eligibility Criteria for Contraceptive Use, 2024.</li>
+                      <li>Ministério da Saúde — Súmulas de Contracepção.</li>
+                      <li>FEBRASGO.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Métodos%20Contraceptivos%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-contracepcao">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-emagrecimento">
+              <p class="blog-meta">
+              <span class="blog-tag">Saúde Metabólica</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 5 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Dificuldade para emagrecer: quando avaliar além da dieta</h3>
+              <p class="blog-summary">Ganho de peso resistente pode estar ligado a alterações hormonais, tireoide, resistência à insulina, sono e estresse. Uma abordagem completa investiga todas essas camadas antes de culpar apenas a alimentação.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-emagrecimento">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-emagrecimento" aria-labelledby="dialog-emagrecimento-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Saúde Metabólica</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 5 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-emagrecimento-titulo" tabindex="-1">Dificuldade para emagrecer: quando avaliar além da dieta</h2>
+                  <div class="article-body">
+                    <p>Existe um grupo de pacientes que conheço bem no consultório: mulheres que fazem dieta, se exercitam, têm disciplina — e o peso não se move. Ou que emagrecem e ganham tudo de volta rapidamente. Quando a resposta comportamental está correta e o resultado não vem, o problema raramente é falta de força de vontade: é sinal de que existe uma camada fisiológica ainda não investigada.</p>
+                    <p>As camadas que avalio na consulta são várias. O hipotireoidismo, mesmo nas formas leves, reduz o gasto metabólico e gera fadiga, retenção de líquido e ganho de peso. A resistência à insulina e a síndrome dos ovários policísticos alteram o armazenamento de gordura e o apetite, frequentemente com menstruações irregulares associadas. O sono curto e o estresse crônico elevam o cortisol e alteram os hormônios do apetite — e aqui, sim, existe fisiologia documentada, não desculpa. E não posso esquecer os medicamentos: antidepressivos, antipsicóticos, corticoides e vários outros medicamentos comuns têm ganho de peso listado como efeito — muitas vezes substituível por alternativa com perfil mais favorável.</p>
+                    <p>Por que a dieta isolada não resolve nesses casos? Porque o corpo é um sistema adaptativo: restrição energética crônica reduz o gasto metabólico e aumenta os sinais de fome — é uma resposta biológica de sobrevivência, não fraqueza. Se os hormônios, o sono ou a medicação estão empurrando na direção oposta à dieta, a dieta perde. O plano correto investiga e corrige primeiro essas camadas.</p>
+                    <p>Minha conduta com quem vive essa frustração é uma avaliação completa: laboratório direcionado (tireoide, glicemia e insulina, perfil hormonal conforme o caso), revisão completa dos medicamentos em uso, avaliação de sono e humor, e depois sim um plano realista — que respeita a rotina da paciente em vez de prometer transformações em 30 dias. Emagrecimento sustentável é lento e estrutural; o que muda trajetória é corrigir o que estava travando.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>ABESO — Diretrizes brasileiras de obesidade.</li>
+                      <li>Endocrine Society — Clinical Practice Guidelines.</li>
+                      <li>Manual MSD — Obesidade e distúrbios do metabolismo.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Dificuldade%20para%20Emagrecer%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-emagrecimento">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-sono-metabolismo">
+              <p class="blog-meta">
+              <span class="blog-tag">Saúde Metabólica</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 6 min de leitura</span>
+              </p>
+              <h3 class="blog-title">A importância do sono para o metabolismo</h3>
+              <p class="blog-summary">Dormir mal não só cansa: altera hormônios do apetite, sensibilidade à insulina e o peso. O sono é um pilar metabólico — e entendê-lo muda a forma de cuidar da saúde.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-sono-metabolismo">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-sono-metabolismo" aria-labelledby="dialog-sono-metabolismo-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Saúde Metabólica</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 6 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-sono-metabolismo-titulo" tabindex="-1">A importância do sono para o metabolismo</h2>
+                  <div class="article-body">
+                    <p>Diz isso para a paciente que faz tudo certo e ainda luta com o peso: o sono é um pilar metabólico, não um luxo. A ciência das últimas décadas estabeleceu que o sono insuficiente — habitualmente menos de seis horas — altera de forma mensurável o funcionamento metabólico, e que essas alterações acontecem em poucos dias de privação, não em anos.</p>
+                    <p>Os mecanismos são bem descritos. A privação de sono reduz a leptina — hormônio que sinaliza saciedade — e aumenta a grelina — hormônio que sinaliza fome —, com resultado prático documentado: mais apetite, preferência por alimentos calóricos e maior ingestão total. Em paralelo, a sensibilidade à insulina piora mesmo em indivíduos saudáveis submetidos a noites curtas, o que favorece o armazenamento de gordura e, no longo prazo, associa-se a maior risco de diabetes tipo 2 e síndrome metabólica. O cortisol, hormônio do estresse, mantém-se elevado — e interage com todo o ciclo.</p>
+                    <p>As revisões científicas contemporâneas associam de forma consistente o sono curto e o desalinhamento do relógio biológico — as noites mal dormidas e os horários caóticos — à obesidade e às doenças metabólicas. E não por acaso que o tema interessa especialmente à saúde da mulher: TPM, gestação, pós-parto e climatério já perturbam o sono por razões hormonais, criando um ciclo em que hormônio piora sono, sono piora metabolismo e metabolismo piora sintomas.</p>
+                    <p>O que fazer começa por medir: quantas horas você realmente dorme, e com que qualidade? As mudanças com melhor evidência são estruturais — horário regular para deitar e acordar, mesmo nos fins de semana; exposição à luz do dia pela manhã; cafeína desligada no fim da tarde; quarto escuro e fresco; e tratamentos adequados para ronho e insônia persistente, que merecem avaliação e não tolerância. Em minhas consultas de plano de cuidado, sono é item de investigação, não rodapé — porque em metabolismo, como em quase tudo, a base determina o resultado.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>Chaput JP et al. The role of insufficient sleep and circadian misalignment in obesity. Nature Reviews Endocrinology, 2022.</li>
+                      <li>Alfikany M et al. The Role of Sex in the Impact of Sleep Restriction on Appetite- and Weight-Regulating Hormones: a systematic review. Clocks &amp; Sleep, 2025.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Sono%20e%20Metabolismo%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-sono-metabolismo">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+
+            <article class="blog-card" id="artigo-sono-estresse">
+              <p class="blog-meta">
+              <span class="blog-tag">Bem-estar</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 4 min de leitura</span>
+              </p>
+              <h3 class="blog-title">Sono, estresse e saúde da mulher: um ciclo que se retroalimenta</h3>
+              <p class="blog-summary">Noites mal dormidas aumentam o estresse, e o estresse crônico prejudica o sono — e ambos afetam hormônios, humor e peso. Entender esse ciclo ajuda a quebrá-lo com mudanças realistas.</p>
+              <button type="button" class="blog-open" aria-haspopup="dialog" aria-controls="dialog-sono-estresse">
+                Ler artigo completo <i class="bi bi-journal-text" aria-hidden="true"></i>
+              </button>
+
+              <dialog class="article-dialog" id="dialog-sono-estresse" aria-labelledby="dialog-sono-estresse-titulo">
+                <button type="button" class="article-close" aria-label="Fechar artigo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                <div class="article-inner">
+                  <p class="blog-meta">
+                  <span class="blog-tag">Bem-estar</span>
+              <span class="blog-time"><i class="bi bi-clock" aria-hidden="true"></i> 4 min de leitura</span>
+                  </p>
+                  <h2 class="article-title" id="dialog-sono-estresse-titulo" tabindex="-1">Sono, estresse e saúde da mulher: um ciclo que se retroalimenta</h2>
+                  <div class="article-body">
+                    <p>Sono e estresse formam um dos ciclos mais perniciosos da saúde: o estresse crônico mantém o sistema de alerta ativado e fragmenta o sono; a noite mal dormida reduz a capacidade de regular emoções no dia seguinte, o que amplifica o estresse; e o círculo se retroalimenta. O resultado final não é só cansaço — é alteração de hormônios, humor, apetite, ciclo menstrual e imunidade.</p>
+                    <p>Fisiologicamente, o eixo que conecta cérebro e glândulas adrenais — o eixo HPA — regula o cortisol. Estresse crônico mantém o cortisol elevado, o que prejudica o sono profundo, eleva o açúcar do sangue, favorece o acúmulo de gordura abdominal e perturba a regularidade do ciclo menstrual. Para a mulher que soma TPM, rotina intensa, filhos e trabalho, o ciclo se instala com facilidade — e o sintoma que aparece primeiro nem sempre é aquele que está na origem.</p>
+                    <p>Na prática clínica, o que quebra esse ciclo não é o "fim do estresse" — que raramente é controlável —, mas a proteção atenta do sono. Priorizar horário regular, desligar telas e demandas uma hora antes, tratar insônia persistente com o devido acompanhamento e reconhecer que sono é intervenção terapêutica, e não resto do dia. Para o estresse em si, a estratégia com melhor evidência é a atividade física regular, que reduz a reatividade do eixo HPA e melhora o sono profundo.</p>
+                    <p>Se você reconhece esse ciclo na sua vida — estresse que não deixa dormir, insônia que piora o estresse, humor e peso que desandam juntos — vale trazer isso à consulta. O plano de cuidado que construo com as pacientes sempre olha para essa tríade: sono, estresse e hormônios, porque em saúde da mulher eles nunca estão separados.</p>
+                  </div>
+                  <div class="article-sources">
+                    <strong>Fontes:</strong>
+                    <ul>
+                      <li>Chaput JP et al. The role of insufficient sleep and circadian misalignment in obesity. Nature Reviews Endocrinology, 2022.</li>
+                      <li>Manual MSD — Insônia e distúrbios do sono.</li>
+                      <li>FEBRASGO.</li>
+                    </ul>
+                  </div>
+                  <div class="article-cta">
+                    <span>Quer conversar sobre o seu momento?</span>
+                    <a href="https://wa.me/5561993314896?text=Olá,%20Dra.%20Camila!%20Li%20o%20artigo%20sobre%20Sono,%20Estresse%20e%20Saúde%20da%20Mulher%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="blog-sono-estresse">
+                      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                      Falar no WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </dialog>
+            </article>
+        </div>
+
+        <!-- Tablet and up: shown by script.js, opens the remaining articles -->
+        <div class="blog-more" hidden>
+          <button type="button" class="btn btn-outline" aria-expanded="false" aria-controls="blog-lista">Ver todos os artigos</button>
+        </div>
+
+        <p class="blog-disclaimer">O conteúdo publicado aqui tem caráter informativo e educativo e não substitui a consulta médica. Em caso de dúvidas sobre a sua saúde, agende uma consulta.</p>
+      </div>
+    </section>
+
+    <!-- 10. Perguntas frequentes -->
+    <section id="faq" class="section">
+      <div class="container faq-layout">
+        <header class="section-head faq-head">
+          <p class="section-label">Dúvidas Frequentes</p>
+          <h2 class="section-title" id="faq-titulo">Perguntas frequentes</h2>
+          <p class="section-intro">As respostas para as dúvidas mais comuns antes da primeira consulta. Para qualquer pergunta além destas, o WhatsApp está aberto.</p>
+        </header>
+
+        <div class="faq-list">
+          <details class="faq-item" name="faq" open>
+            <summary>
+              <span>Como agendar uma consulta?</span>
+              <i class="bi bi-plus-lg faq-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>O agendamento é feito diretamente pelo WhatsApp, na tela de contato desta página. É a forma mais rápida: você fala diretamente com a equipe, tira dúvidas iniciais e escolhe o melhor horário. Os botões de agendamento espalhados pelo site já abrem a conversa com a mensagem pronta — é só enviar.</p>
+            </div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary>
+              <span>O atendimento é presencial ou online?</span>
+              <i class="bi bi-plus-lg faq-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>As consultas podem ser realizadas presencial ou online, com o mesmo valor nos dois formatos. As consultas presenciais acontecem em consultório em Águas Claras-DF; a opção online atende quem precisa de praticidade ou está fora de Brasília.</p>
+            </div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary>
+              <span>Qual a diferença entre a Consulta Inicial e a Consulta de Continuidade?</span>
+              <i class="bi bi-plus-lg faq-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>A Consulta Inicial de Cuidado da Mulher (1h30) é a porta de entrada: construímos juntas a compreensão completa da sua saúde — história, exames e objetivos. A Consulta de Continuidade (1h) é para o acompanhamento: revisar exames, ajustar o plano de cuidado e evoluir o que já foi iniciado. Detalhes de cada formato estão na seção Consultas, acima.</p>
+            </div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary>
+              <span>A Dra. Camila substitui minha ginecologista?</span>
+              <i class="bi bi-plus-lg faq-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Não. Como o próprio site resume: não substituo a ginecologia, mas amplio a abordagem. O papel da Medicina de Família e Comunidade é olhar a mulher como um todo — conectando ginecologia, saúde hormonal, mental e metabólica — e coordenar o cuidado entre especialistas, para que nada fique fragmentado.</p>
+            </div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary>
+              <span>O que devo levar à primeira consulta?</span>
+              <i class="bi bi-plus-lg faq-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Para aproveitar bem a hora e meia, idealmente traga: a lista completa de medicamentos em uso, exames recentes que você tenha e anotações sobre seu ciclo menstrual, sintomas e histórico familiar relevante. Não precisa ter tudo perfeito — o essencial é construirmos juntas a história completa.</p>
+            </div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary>
+              <span>Onde as consultas acontecem?</span>
+              <i class="bi bi-plus-lg faq-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>As consultas presenciais acontecem em consultório em Águas Claras-DF, e as online podem ser feitas de qualquer lugar. O atendimento acontece de segunda a sexta, das 08h às 18h.</p>
+            </div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary>
+              <span>Posso tirar dúvidas antes de decidir agendar?</span>
+              <i class="bi bi-plus-lg faq-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Sim. O WhatsApp está aberto para dúvidas iniciais antes de agendar — faz parte do cuidado. Uma observação importante: em caso de urgência ou emergência, procure o serviço de urgência mais próximo; o WhatsApp não substitui atendimento de emergência.</p>
+            </div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary>
+              <span>O atendimento é particular? Emite recibo para reembolso?</span>
+              <i class="bi bi-plus-lg faq-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="faq-answer">
+              <p>Sim. O atendimento é exclusivamente particular, sem vínculo direto com planos de saúde. Para cada consulta e procedimento é emitido recibo, que você pode utilizar para solicitar o reembolso junto ao seu plano de saúde, conforme as regras do seu contrato. Havendo dúvidas sobre o processo, o WhatsApp está disponível para orientar.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-help">
+          <p>Ficou com alguma dúvida além destas?</p>
+          <a href="https://wa.me/5561993314896?text=Ol%C3%A1,%20gostaria%20de%20agendar%20uma%20consulta" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-cta="faq">
+            <i class="bi bi-whatsapp" aria-hidden="true"></i>
+            Falar no WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Contato e Agendamento -->
+    <section id="contato" class="section section-contact">
       <div class="container">
         <div class="contact-panel">
           <p class="section-label">Próximo Passo</p>
@@ -550,7 +1303,7 @@
 
   </main>
 
-  <!-- 9. Rodapé -->
+  <!-- 12. Rodapé -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-top">

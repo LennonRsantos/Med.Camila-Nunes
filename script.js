@@ -1,8 +1,8 @@
 // Google Ads: every WhatsApp CTA carries data-cta ("hero", "blog-menopausa"…), so one delegated
 // listener reports them all as a conversion. gtag.js is loaded in the <head>.
 // Kept outside DOMContentLoaded so the early return below (reduced motion) never skips it.
-// Replace ROTULO_AQUI with the label from Google Ads > Goals > Conversions.
-const ADS_CONVERSION = 'AW-18553715600/ROTULO_AQUI';
+// Conversion action "Contato" (Google Ads > Goals > Conversions): conversion ID / conversion label.
+const ADS_CONVERSION = 'AW-18553715600/-SO2CK7_prEdEJD3jI9F';
 
 // Article CTAs name a health topic (sensitive data under LGPD), so they are reported only as "blog"
 const ctaLabel = (cta) => (cta.startsWith('blog-') ? 'blog' : cta);

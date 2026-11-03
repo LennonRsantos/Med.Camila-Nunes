@@ -120,7 +120,7 @@ O site usa a tag do Google Ads (`gtag.js`, ID `AW-18553715600`), carregada no `<
 
 Todos os botões de WhatsApp têm o atributo `data-cta` (ex.: `hero`, `consulta-inicial`, `blog-menopausa`). No início do `script.js`, um único listener envia cada clique nesses botões como conversão (`trackConversion`), com o nome do botão no parâmetro `cta`. Novos botões só precisam do atributo `data-cta`.
 
-Para ativar a contagem de conversões, troque `ROTULO_AQUI` na constante `ADS_CONVERSION` do `script.js` pelo rótulo da ação de conversão (Google Ads > Metas > Conversões).
+A conversão usada é a ação "Contato" do Google Ads. O ID e o rótulo ficam na constante `ADS_CONVERSION` do `script.js`. Para trocar de ação, copie o novo rótulo em Google Ads > Metas > Conversões > (ação) > Gerenciar > Usar o Google Tag Manager.
 
 ### Privacidade e cookies (LGPD)
 

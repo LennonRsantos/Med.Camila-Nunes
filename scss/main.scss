@@ -29,6 +29,9 @@
 
 @use "layout/footer";
 
+@use "pages/privacy";
+
 @use "components/spotlight";
 @use "components/wpp-float";
+@use "components/cookie-banner";
 @use "components/reveal";

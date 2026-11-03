@@ -133,6 +133,25 @@
   color: rgba($cream, 0.6);
 }
 
+// Privacy policy link and "Preferências de cookies" (a button that reopens the cookie notice)
+.footer-legal-link {
+  margin-left: 0.35rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: $caramel-200;
+  text-decoration: underline;
+  text-decoration-color: rgba($caramel-200, 0.4);
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: text-decoration-color 0.2s $ease-out;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
 // Developer credit: deliberately small and quiet
 .footer-credit {
   margin-top: 1rem;

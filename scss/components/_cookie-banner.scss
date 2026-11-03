@@ -1,0 +1,82 @@
+@use "../abstracts" as *;
+
+// Cookie notice (LGPD): non-blocking card at the bottom. Phones: full width.
+// Tablet and up: bottom-left corner, clear of the floating WhatsApp button on the right.
+.cookie-banner {
+  position: fixed;
+  right: $gutter;
+  bottom: calc(0.875rem + env(safe-area-inset-bottom));
+  left: $gutter;
+  z-index: 70;
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid $line;
+  border-radius: $radius;
+  background: $white;
+  box-shadow: $shadow-lift;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+
+  &[hidden] {
+    display: none;
+  }
+
+  @include up(md) {
+    right: auto;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    left: max(1.5rem, env(safe-area-inset-left));
+    max-width: 26rem;
+    padding: 1.35rem 1.5rem 1.5rem;
+  }
+}
+
+@include motion-ok {
+  .cookie-banner:not([hidden]) {
+    animation: cookie-in 0.5s $ease-out both;
+  }
+}
+
+@keyframes cookie-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.cookie-title {
+  font-family: $font-display;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: $cafe;
+
+  // Focused by script when the notice is reopened; the card itself shows where focus is
+  &:focus {
+    outline: none;
+  }
+}
+
+.cookie-text a {
+  font-weight: 600;
+  color: $caramel-700;
+  text-underline-offset: 2px;
+}
+
+// Refuse and accept carry the same weight and size
+.cookie-actions {
+  display: flex;
+  gap: 0.625rem;
+  margin-top: 0.25rem;
+
+  .btn {
+    flex: 1;
+  }
+}
+
+// Phones: the floating WhatsApp button would sit on top of the notice, so it waits for the choice
+@include down(md) {
+  .has-cookie-banner .wpp-float {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

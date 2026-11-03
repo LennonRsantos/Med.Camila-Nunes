@@ -116,7 +116,17 @@ Ao configurar o domínio definitivo, adicione `<link rel="canonical">` e `og:url
 
 ### Medição de cliques
 
-Todos os botões de WhatsApp têm o atributo `data-cta` (ex.: `hero`, `consulta-inicial`, `blog-menopausa`). Com isso, é possível ligar uma ferramenta de analytics depois, sem alterar o HTML.
+O site usa a tag do Google Ads (`gtag.js`, ID `AW-18553715600`), carregada no `<head>` do `index.html`.
+
+Todos os botões de WhatsApp têm o atributo `data-cta` (ex.: `hero`, `consulta-inicial`, `blog-menopausa`). No início do `script.js`, um único listener envia cada clique nesses botões como conversão (`trackConversion`), com o nome do botão no parâmetro `cta`. Novos botões só precisam do atributo `data-cta`.
+
+Para ativar a contagem de conversões, troque `ROTULO_AQUI` na constante `ADS_CONVERSION` do `script.js` pelo rótulo da ação de conversão (Google Ads > Metas > Conversões).
+
+### Privacidade e cookies (LGPD)
+
+- A tag usa o Consent Mode v2: nenhum cookie de publicidade é gravado até o visitante clicar em "Aceitar" no aviso de cookies. A personalização de anúncios fica sempre desativada, porque é um site de saúde.
+- A escolha fica salva no navegador, na chave `cookie-consent` (`granted` ou `denied`). O link "Preferências de cookies" no rodapé reabre o aviso, assim como o endereço `index.html#cookies`.
+- O texto da política fica em `privacidade.html`. Ao mudar dados tratados, cookies ou fornecedores, atualize a página e a data de "Última atualização".
 
 ## Créditos
 

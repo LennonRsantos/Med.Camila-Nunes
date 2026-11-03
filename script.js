@@ -1,3 +1,81 @@
+// Google Ads: every WhatsApp CTA carries data-cta ("hero", "blog-menopausa"…), so one delegated
+// listener reports them all as a conversion. gtag.js is loaded in the <head>.
+// Kept outside DOMContentLoaded so the early return below (reduced motion) never skips it.
+// Replace ROTULO_AQUI with the label from Google Ads > Goals > Conversions.
+const ADS_CONVERSION = 'AW-18553715600/ROTULO_AQUI';
+
+// Article CTAs name a health topic (sensitive data under LGPD), so they are reported only as "blog"
+const ctaLabel = (cta) => (cta.startsWith('blog-') ? 'blog' : cta);
+
+function trackConversion(cta) {
+  if (typeof window.gtag !== 'function') return;
+  window.gtag('event', 'conversion', { send_to: ADS_CONVERSION, cta: ctaLabel(cta) });
+}
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('[data-cta]');
+  if (link) trackConversion(link.dataset.cta);
+});
+
+// Cookie notice (LGPD): the choice updates Consent Mode and is kept in localStorage,
+// where the <head> reads it on the next visit. Ad personalization is never granted.
+const cookieBanner = document.getElementById('cookieBanner');
+let cookieReturnFocus = null;
+
+const showCookieBanner = (returnTo = null, focus = Boolean(returnTo)) => {
+  cookieReturnFocus = returnTo;
+  cookieBanner.hidden = false;
+  document.documentElement.classList.add('has-cookie-banner');
+  if (focus) cookieBanner.querySelector('.cookie-title').focus();
+};
+
+const setConsent = (choice) => {
+  if (typeof window.gtag === 'function') {
+    window.gtag('consent', 'update', { ad_storage: choice, ad_user_data: choice });
+  }
+  // Withdrawing consent: gtag stops writing, but cookies set earlier stay, so remove them here
+  if (choice === 'denied') {
+    const domains = ['', location.hostname, location.hostname.replace(/^www\./, '.')];
+    document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((name) => name.startsWith('_gcl_'))
+      .forEach((name) => domains.forEach((domain) => {
+        document.cookie = `${name}=; max-age=0; path=/${domain ? `; domain=${domain}` : ''}`;
+      }));
+  }
+  try {
+    localStorage.setItem('cookie-consent', choice);
+  } catch (e) {
+    // Storage blocked (private mode): the notice simply shows again next visit
+  }
+  cookieBanner.hidden = true;
+  document.documentElement.classList.remove('has-cookie-banner');
+  if (cookieReturnFocus) cookieReturnFocus.focus();
+  cookieReturnFocus = null;
+};
+
+if (cookieBanner) {
+  let savedConsent = null;
+  try {
+    savedConsent = localStorage.getItem('cookie-consent');
+  } catch (e) {
+    // Storage blocked: treated as no choice yet
+  }
+  if (!savedConsent) showCookieBanner();
+
+  cookieBanner.querySelectorAll('[data-consent]').forEach((btn) => {
+    btn.addEventListener('click', () => setConsent(btn.dataset.consent));
+  });
+  document.querySelectorAll('[data-cookie-settings]').forEach((btn) => {
+    btn.addEventListener('click', () => showCookieBanner(btn));
+  });
+
+  // "Alterar preferências" on privacidade.html links to index.html#cookies
+  const openCookiesFromHash = () => {
+    if (location.hash === '#cookies') showCookieBanner(null, true);
+  };
+  openCookiesFromHash();
+  window.addEventListener('hashchange', openCookiesFromHash);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Dynamic year
   const yearEl = document.getElementById('currentYear');
